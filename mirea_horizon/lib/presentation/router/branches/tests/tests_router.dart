@@ -1,24 +1,24 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'main_routes_constants.dart';
+import 'package:mirea_horizon/presentation/features/tests/tests.dart';
+import 'tests_routes_constants.dart';
 import '../../../features/details/details_page.dart';
-import '../../../features/main/main.dart';
 
-class MainRouter extends StatefulShellBranch {
-  MainRouter()
+class TestsRouter extends StatefulShellBranch {
+  TestsRouter()
       : super(
-            initialLocation: MainRoutes.base(),
+            initialLocation: TestsRoutes.base(),
             navigatorKey: GlobalKey<NavigatorState>(),
             routes: <RouteBase>[
               GoRoute(
-                  path: MainRoutes.base(),
+                  path: TestsRoutes.base(),
                   builder: (BuildContext context, GoRouterState state) =>
-                      const MainScreen(),
+                      const TestsScreen(),
                   routes: [
                     GoRoute(
-                      path: MainRoutes.details(),
+                      path: TestsRoutes.details(),
                       builder: (context, state) =>
-                          const DetailsScreen(nameTitle: 'main'),
+                          const DetailsScreen(nameTitle: 'tests'),
                     )
                   ])
             ]);

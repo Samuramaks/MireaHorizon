@@ -1,24 +1,24 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'main_routes_constants.dart';
+import 'package:mirea_horizon/presentation/features/calendar/calendar.dart';
+import 'calendar_routes_constants.dart';
 import '../../../features/details/details_page.dart';
-import '../../../features/main/main.dart';
 
-class MainRouter extends StatefulShellBranch {
-  MainRouter()
+class CalendarRouter extends StatefulShellBranch {
+  CalendarRouter()
       : super(
-            initialLocation: MainRoutes.base(),
+            initialLocation: CalendarRoutes.base(),
             navigatorKey: GlobalKey<NavigatorState>(),
             routes: <RouteBase>[
               GoRoute(
-                  path: MainRoutes.base(),
+                  path: CalendarRoutes.base(),
                   builder: (BuildContext context, GoRouterState state) =>
-                      const MainScreen(),
+                      const CalendarScreen(),
                   routes: [
                     GoRoute(
-                      path: MainRoutes.details(),
+                      path: CalendarRoutes.details(),
                       builder: (context, state) =>
-                          const DetailsScreen(nameTitle: 'main'),
+                          const DetailsScreen(nameTitle: 'calendar'),
                     )
                   ])
             ]);

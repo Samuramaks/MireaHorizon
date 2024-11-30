@@ -1,24 +1,24 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'main_routes_constants.dart';
+import 'profile_routes_constants.dart';
 import '../../../features/details/details_page.dart';
-import '../../../features/main/main.dart';
+import '../../../features/profile/profile.dart';
 
-class MainRouter extends StatefulShellBranch {
-  MainRouter()
+class ProfileRouter extends StatefulShellBranch {
+  ProfileRouter()
       : super(
-            initialLocation: MainRoutes.base(),
+            initialLocation: ProfileRoutes.base(),
             navigatorKey: GlobalKey<NavigatorState>(),
             routes: <RouteBase>[
               GoRoute(
-                  path: MainRoutes.base(),
+                  path: ProfileRoutes.base(),
                   builder: (BuildContext context, GoRouterState state) =>
-                      const MainScreen(),
+                      const ProfileScreen(),
                   routes: [
                     GoRoute(
-                      path: MainRoutes.details(),
+                      path: ProfileRoutes.details(),
                       builder: (context, state) =>
-                          const DetailsScreen(nameTitle: 'main'),
+                          const DetailsScreen(nameTitle: 'profile'),
                     )
                   ])
             ]);
