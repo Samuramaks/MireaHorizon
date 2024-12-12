@@ -7,9 +7,9 @@ class ProgressScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const CustomWidget(
-        nameAppBar: 'Progress',
+        nameAppBar: 'Успеваемость',
         body: Center(
-          child: Text('Progress'),
+          child: Text('Успеваемость'),
         ));
   }
 }

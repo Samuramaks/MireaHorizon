@@ -8,8 +8,10 @@ abstract class AppColors {
   static Color defaultLightColor = const Color.fromARGB(255, 255, 255, 255);
   static Color defaultDarkColor = const Color.fromARGB(11, 11, 11, 1);
 
-  static Color backgroundAppLightColor = const Color.fromRGBO(243, 250, 255, 1);
+  static Color backgroundAppLightColor = const Color.fromRGBO(244, 243, 255, 1);
   static Color backgroundAppDarkColor = const Color.fromRGBO(11, 11, 11, 1);
+
+  static Color selectedItemBar = const Color.fromRGBO(139, 32, 114, 1);
 
   static Color backgroundWidgetLightColor =
       const Color.fromRGBO(255, 255, 255, 1);

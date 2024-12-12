@@ -10,8 +10,11 @@ class CustomWidget extends StatelessWidget {
     var colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
-        title: Text(nameAppBar),
-        backgroundColor: colorScheme.primary,
+        title: Text(
+          nameAppBar,
+          style: TextStyle(color: colorScheme.onSurface),
+        ),
+        backgroundColor: colorScheme.secondary,
         centerTitle: true,
       ),
       body: body,

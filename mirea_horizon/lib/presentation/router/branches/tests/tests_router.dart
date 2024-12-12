@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mirea_horizon/presentation/features/tests/tests.dart';
+import 'package:mirea_horizon/presentation/features/tests/tests_screen.dart';
+
 import 'tests_routes_constants.dart';
 import '../../../features/details/details_page.dart';
 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "91590485525",
+    "project_id": "mireahorizon",
+    "storage_bucket": "mireahorizon.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91590485525:android:a9fc38ad6ecc1b042c501c",
+        "android_client_info": {
+          "package_name": "com.example.mirea_horizon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDahNqTE_ByTaIrKxeE_k8QW3tEh6CeYKI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

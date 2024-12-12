@@ -1,103 +1,77 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../bloc/base/bloc.dart';
+import '../../router/routes/base/base.dart';
 
 class DefaultNavBar extends StatelessWidget {
-  const DefaultNavBar({super.key, required this.navigationShell});
+  final Widget child;
 
-  final StatefulNavigationShell navigationShell;
+  const DefaultNavBar({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
 
   void _onItemTapped(BuildContext context, int index) {
-    navigationShell.goBranch(
-      index,
-      initialLocation: index == navigationShell.currentIndex,
-    );
+    switch (index) {
+      case 0:
+        context.go(BaseRoutes.main());
+        break;
+      case 1:
+        context.go(BaseRoutes.tests());
+        break;
+      case 2:
+        context.go(BaseRoutes.calendar());
+        break;
+      case 3:
+        context.go(BaseRoutes.progress());
+        break;
+      case 4:
+        context.go(BaseRoutes.profile());
+        break;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final NavigationBloc navigationBloc = GetIt.instance<NavigationBloc>();
-    // navigationBloc.add(NavigationLoadEvent());
-
     return Scaffold(
-      body: navigationShell,
+      body: child,
       bottomNavigationBar: BottomNavigationBar(
-          onTap: (int index) {
-            navigationBloc.add(NavigationSelectTabEvent(index));
-            _onItemTapped(context, index);
-          },
-          type: BottomNavigationBarType.fixed,
-          currentIndex: navigationBloc.state.currentIndex,
-          backgroundColor: Theme.of(context).colorScheme.onPrimary,
-          unselectedItemColor:
-              Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-          selectedItemColor: Theme.of(context).primaryColor,
-          showUnselectedLabels: false,
-          selectedFontSize: 12,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded),
-              label: 'Главная',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.folder),
-              label: 'Тестирование',
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_month_rounded), label: 'Календарь'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.analytics_outlined),
-              label: 'Прогресс',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Профиль',
-            ),
-          ]
-          // items: navigationBloc.state.isOpen
-          //     ? const [
-          //         BottomNavigationBarItem(
-          //           icon: Icon(Icons.map),
-          //           label: 'Карты',
-          //         ),
-          //         BottomNavigationBarItem(
-          //             icon: Icon(Icons.videocam_sharp), label: 'Видео'),
-          //         BottomNavigationBarItem(
-          //           icon: Icon(Icons.note),
-          //           label: 'Методики',
-          //         ),
-          //         BottomNavigationBarItem(
-          //           icon: Icon(Icons.start),
-          //           label: 'Приветствие',
-          //         ),
-          //       ]
-          // : const [
-          //     BottomNavigationBarItem(
-          //         icon: Icon(Icons.newspaper), label: "n"),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.map),
-          //       label: 'k',
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.messenger),
-          //       label: "d",
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.schedule),
-          //       label: 'i',
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.person),
-          //       label: "m",
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.start),
-          //       label: 'b',
-          //     ),
-          //   ],
+        onTap: (int index) {
+          navigationBloc.add(NavigationSelectTabEvent(index));
+          _onItemTapped(context, index);
+        },
+        type: BottomNavigationBarType.fixed,
+        currentIndex: navigationBloc.state.currentIndex,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        unselectedItemColor: Theme.of(context).colorScheme.onSurface,
+        selectedItemColor: Theme.of(context).colorScheme.surface,
+        showUnselectedLabels: true,
+        selectedFontSize: 12,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_rounded),
+            label: 'Главная',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.folder),
+            label: 'Тестирование',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month_rounded),
+            label: 'Календарь',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.analytics_outlined),
+            label: 'Успеваемость',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline_rounded),
+            label: 'Профиль',
+          ),
+        ],
+      ),
     );
   }
 }
