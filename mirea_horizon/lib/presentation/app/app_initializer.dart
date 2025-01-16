@@ -13,7 +13,7 @@ import '../bloc/theme_bloc/theme_cubit.dart';
 class AppInitializer extends StatelessWidget {
   final Widget child;
 
-  const AppInitializer({Key? key, required this.child}) : super(key: key);
+  const AppInitializer({super.key, required this.child});
 
   static Future<void> initializeFirebase() async {
     await Firebase.initializeApp(

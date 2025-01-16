@@ -6,8 +6,7 @@ class NewsDetailScreen extends StatelessWidget {
   final String title;
   final String url;
 
-  const NewsDetailScreen({Key? key, required this.title, required this.url})
-      : super(key: key);
+  const NewsDetailScreen({super.key, required this.title, required this.url});
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +19,15 @@ class NewsDetailScreen extends StatelessWidget {
             fetchFullNews(url), // Функция для получения полного текста новости
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Ошибка: ${snapshot.error}'));
           } else {
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child:
-                    Text(snapshot.data ?? '', style: TextStyle(fontSize: 16)),
+                child: Text(snapshot.data ?? '',
+                    style: const TextStyle(fontSize: 16)),
               ),
             );
           }

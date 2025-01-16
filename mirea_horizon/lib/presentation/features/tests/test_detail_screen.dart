@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mirea_horizon/data/models/test_models.dart';
+import 'package:mirea_horizon/data/models/tests/test_models.dart';
 import 'package:mirea_horizon/presentation/bloc/test_bloc/test_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/test_bloc/test_event.dart';
 import 'package:mirea_horizon/presentation/bloc/test_bloc/test_state.dart';
@@ -9,7 +9,7 @@ import 'test_result_screen.dart';
 class TestDetailScreen extends StatefulWidget {
   final Test test;
 
-  const TestDetailScreen({Key? key, required this.test}) : super(key: key);
+  const TestDetailScreen({super.key, required this.test});
 
   @override
   _TestDetailScreenState createState() => _TestDetailScreenState();
@@ -91,11 +91,11 @@ class QuestionCard extends StatelessWidget {
   final Function(String) onAnswerSelected;
 
   const QuestionCard({
-    Key? key,
+    super.key,
     required this.question,
     required this.selectedAnswer,
     required this.onAnswerSelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +119,7 @@ class QuestionCard extends StatelessWidget {
                       answer); // Вызываем функцию при выборе ответа
                 },
               );
-            }).toList(),
+            }),
           ],
         ),
       ),

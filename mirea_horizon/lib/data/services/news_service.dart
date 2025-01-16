@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as html;
-import '../models/news_item.dart';
+import '../models/news/news_item.dart';
 
 class NewsService {
   Future<List<NewsItem>> fetchNews() async {

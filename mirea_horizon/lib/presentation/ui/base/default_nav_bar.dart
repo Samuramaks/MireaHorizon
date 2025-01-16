@@ -8,9 +8,9 @@ class DefaultNavBar extends StatelessWidget {
   final Widget child;
 
   const DefaultNavBar({
-    Key? key,
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
 
   void _onItemTapped(BuildContext context, int index) {
     switch (index) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/models/news_item.dart';
+import '../../../data/models/news/news_item.dart';
 import '../../bloc/news_bloc/news_bloc.dart';
 import '../../bloc/news_bloc/news_event.dart';
 import '../../bloc/news_bloc/news_state.dart';
@@ -8,7 +8,7 @@ import '../../../data/services/news_service.dart';
 import '../widgets/custom_widget.dart';
 
 class NewsListWidget extends StatelessWidget {
-  const NewsListWidget({Key? key}) : super(key: key);
+  const NewsListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class NewsListWidget extends StatelessWidget {
 class NewsCard extends StatelessWidget {
   final NewsItem newsItem;
 
-  const NewsCard({Key? key, required this.newsItem}) : super(key: key);
+  const NewsCard({super.key, required this.newsItem});
 
   @override
   Widget build(BuildContext context) {

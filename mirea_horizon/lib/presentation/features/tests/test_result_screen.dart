@@ -40,8 +40,7 @@ class TestResultScreen extends StatelessWidget {
   final int totalQuestions;
 
   const TestResultScreen(
-      {Key? key, required this.score, required this.totalQuestions})
-      : super(key: key);
+      {super.key, required this.score, required this.totalQuestions});
 
   @override
   Widget build(BuildContext context) {

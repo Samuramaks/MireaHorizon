@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../../../data/models/test_models.dart';
+import '../../../data/models/tests/test_models.dart';
 
 abstract class TestState extends Equatable {
   @override

@@ -99,8 +99,8 @@ class _AuthPageState extends State<AuthPage> {
                           if (value == null || value.isEmpty) {
                             return 'Пожалуйста, введите пароль';
                           }
-                          if (value.length < 6) {
-                            return 'Пароль должен содержать минимум 6 символов';
+                          if (value.length < 3) {
+                            return 'Пароль должен содержать минимум 3 символов';
                           }
                           return null;
                         },

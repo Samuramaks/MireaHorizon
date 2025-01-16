@@ -67,7 +67,7 @@ import '../../bloc/test_bloc/test_state.dart';
 import 'test_detail_screen.dart';
 
 class TestsScreen extends StatefulWidget {
-  const TestsScreen({Key? key}) : super(key: key);
+  const TestsScreen({super.key});
 
   @override
   _TestsScreenState createState() => _TestsScreenState();

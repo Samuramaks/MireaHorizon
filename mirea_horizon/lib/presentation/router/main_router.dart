@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mirea_horizon/presentation/features/calendar/calendar.dart';
 import 'package:mirea_horizon/presentation/features/main/main.dart';
 import 'package:mirea_horizon/presentation/features/profile/profile.dart';
@@ -12,7 +11,6 @@ import '../bloc/auth_bloc/auth_bloc.dart';
 import '../bloc/auth_bloc/auth_state.dart';
 import '../features/auth/auth_page.dart';
 import '../ui/base/base.dart';
-import 'routes/base/base.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();

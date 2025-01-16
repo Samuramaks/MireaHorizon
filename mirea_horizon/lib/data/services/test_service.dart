@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models/test_models.dart';
+import '../models/tests/test_models.dart';
 
 class TestService {
   final String baseUrl;
@@ -25,7 +25,7 @@ class TestService {
 
   Future<Test> getTestById(int id) async {
     try {
-      final response = await http.get(Uri.parse('${baseUrl}/$id'));
+      final response = await http.get(Uri.parse('$baseUrl/$id'));
 
       if (response.statusCode == 200) {
         return Test.fromJson(json.decode(response.body));
