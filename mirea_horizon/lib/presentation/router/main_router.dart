@@ -7,6 +7,7 @@ import 'package:mirea_horizon/presentation/features/main/main.dart';
 import 'package:mirea_horizon/presentation/features/profile/profile.dart';
 import 'package:mirea_horizon/presentation/features/progress/progress.dart';
 import 'package:mirea_horizon/presentation/features/tests/tests_screen.dart';
+import 'package:mirea_horizon/presentation/router/export_main_widgets.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
 import '../bloc/auth_bloc/auth_state.dart';
 import '../features/auth/auth_page.dart';
@@ -69,34 +70,46 @@ GoRouter createAppRoute(AuthBloc authBloc) {
         path: '/',
         builder: (context, state) => const AuthPage(),
       ),
-      ShellRoute(
-        navigatorKey: _shellNavigatorKey,
-        builder: (context, state, child) {
-          return DefaultNavBar(child: child);
-        },
-        routes: [
-          GoRoute(
-            path: '/app/main',
-            builder: (context, state) => const MainScreen(),
-          ),
-          GoRoute(
-            path: '/app/tests',
-            builder: (context, state) => const TestsScreen(),
-          ),
-          GoRoute(
-            path: '/app/calendar',
-            builder: (context, state) => const CalendarScreen(),
-          ),
-          GoRoute(
-            path: '/app/progress',
-            builder: (context, state) => const ProgressScreen(),
-          ),
-          GoRoute(
-            path: '/app/profile',
-            builder: (context, state) => const ProfileScreen(),
-          ),
-        ],
-      ),
+      StatefulShellRoute.indexedStack(
+          builder: (BuildContext context, GoRouterState state,
+              StatefulNavigationShell navigationShell) {
+            return DefaultNavBar(navigationShell: navigationShell);
+          },
+          branches: <StatefulShellBranch>[
+            MainRouter(),
+            TestsRouter(),
+            CalendarRouter(),
+            ProgressRouter(),
+            ProfileRouter(),
+          ])
+      // ShellRoute(
+      //   navigatorKey: _shellNavigatorKey,
+      //   builder: (context, state, child) {
+      //     return DefaultNavBar(child: child);
+      //   },
+      //   routes: [
+      //     GoRoute(
+      //       path: '/app/main',
+      //       builder: (context, state) => const MainScreen(),
+      //     ),
+      //     GoRoute(
+      //       path: '/app/tests',
+      //       builder: (context, state) => const TestsScreen(),
+      //     ),
+      //     GoRoute(
+      //       path: '/app/calendar',
+      //       builder: (context, state) => const CalendarScreen(),
+      //     ),
+      //     GoRoute(
+      //       path: '/app/progress',
+      //       builder: (context, state) => const ProgressScreen(),
+      //     ),
+      //     GoRoute(
+      //       path: '/app/profile',
+      //       builder: (context, state) => const ProfileScreen(),
+      //     ),
+      //   ],
+      // ),
     ],
   );
 }

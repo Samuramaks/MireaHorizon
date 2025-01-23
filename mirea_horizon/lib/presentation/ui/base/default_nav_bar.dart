@@ -5,38 +5,40 @@ import '../../bloc/base/bloc.dart';
 import '../../router/routes/base/base.dart';
 
 class DefaultNavBar extends StatelessWidget {
-  final Widget child;
+  const DefaultNavBar({super.key, required this.navigationShell});
 
-  const DefaultNavBar({
-    super.key,
-    required this.child,
-  });
+  final StatefulNavigationShell navigationShell;
 
   void _onItemTapped(BuildContext context, int index) {
-    switch (index) {
-      case 0:
-        context.go(BaseRoutes.main());
-        break;
-      case 1:
-        context.go(BaseRoutes.tests());
-        break;
-      case 2:
-        context.go(BaseRoutes.calendar());
-        break;
-      case 3:
-        context.go(BaseRoutes.progress());
-        break;
-      case 4:
-        context.go(BaseRoutes.profile());
-        break;
-    }
+    // switch (index) {
+    //   case 0:
+    //     context.go(BaseRoutes.main());
+    //     break;
+    //   case 1:
+    //     context.go(BaseRoutes.tests());
+    //     break;
+    //   case 2:
+    //     context.go(BaseRoutes.calendar());
+    //     break;
+    //   case 3:
+    //     context.go(BaseRoutes.progress());
+    //     break;
+    //   case 4:
+    //     context.go(BaseRoutes.profile());
+    //     break;
+    // }
+
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final NavigationBloc navigationBloc = GetIt.instance<NavigationBloc>();
     return Scaffold(
-      body: child,
+      body: navigationShell,
       bottomNavigationBar: BottomNavigationBar(
         onTap: (int index) {
           navigationBloc.add(NavigationSelectTabEvent(index));

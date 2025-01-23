@@ -32,7 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignInRequested>((event, emit) async {
       print('Processing SignInRequested event');
       emit(Loading());
-      
+
       try {
         print('Attempting to sign in with email: ${event.email}');
         final credential = await authRepository.signIn(
@@ -51,7 +51,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignUpRequested>((event, emit) async {
       print('Processing SignUpRequested event');
       emit(Loading());
-      
+
       try {
         print('Attempting to sign up with email: ${event.email}');
         final credential = await authRepository.signUp(
@@ -70,7 +70,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignOutRequested>((event, emit) async {
       print('Processing SignOutRequested event');
       emit(Loading());
-      
+
       try {
         await authRepository.signOut();
         print('Sign out successful');

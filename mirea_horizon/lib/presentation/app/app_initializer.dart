@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/news_bloc/news_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/test_bloc/test_bloc.dart';
 import '../../../firebase_options.dart';
@@ -28,7 +29,8 @@ class AppInitializer extends StatelessWidget {
       BlocProvider(create: (context) => GetIt.instance<NavigationBloc>()),
       BlocProvider(create: (context) => GetIt.instance<AuthBloc>()),
       BlocProvider(create: (context) => GetIt.instance<TestBloc>()),
-      BlocProvider(create: (context) => GetIt.instance<NewsBloc>())
+      BlocProvider(create: (context) => GetIt.instance<NewsBloc>()),
+      BlocProvider(create: (context) => GetIt.instance<CalendarBloc>()),
     ], child: child);
   }
 }
