@@ -2,11 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mirea_horizon/presentation/features/calendar/calendar.dart';
-import 'package:mirea_horizon/presentation/features/main/main.dart';
-import 'package:mirea_horizon/presentation/features/profile/profile.dart';
-import 'package:mirea_horizon/presentation/features/progress/progress.dart';
-import 'package:mirea_horizon/presentation/features/tests/tests_screen.dart';
 import 'package:mirea_horizon/presentation/router/export_main_widgets.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
 import '../bloc/auth_bloc/auth_state.dart';

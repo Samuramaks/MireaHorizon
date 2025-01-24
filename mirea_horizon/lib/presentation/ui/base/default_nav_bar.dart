@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import '../../bloc/base/bloc.dart';
-import '../../router/routes/base/base.dart';
 
 class DefaultNavBar extends StatelessWidget {
   const DefaultNavBar({super.key, required this.navigationShell});

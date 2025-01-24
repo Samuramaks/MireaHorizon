@@ -91,7 +91,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     eventLoader: _getEventsForDay,
                     calendarBuilders: CalendarBuilders(
                       markerBuilder: (BuildContext context, date, events) {
-                        if (events.isEmpty) return SizedBox();
+                        if (events.isEmpty) return const SizedBox();
                         return ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
@@ -128,9 +128,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                   child: ListTile(
                                     title: Text(value[index]
                                         .name), // Отображаем название события
-                                    subtitle: Text(DateFormat('yyyy-MM-dd')
-                                        .format(value[index]
-                                            .date)), // Отображаем дату события
+
+                                    leading: Text(value[index].description),
                                   ),
                                 );
                               });

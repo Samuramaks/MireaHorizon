@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mirea_horizon/data/models/tests/test_models.dart';
-import 'package:mirea_horizon/presentation/bloc/test_bloc/test_bloc.dart';
-import 'package:mirea_horizon/presentation/bloc/test_bloc/test_event.dart';
-import 'package:mirea_horizon/presentation/bloc/test_bloc/test_state.dart';
 import 'test_result_screen.dart';
 
 class TestDetailScreen extends StatefulWidget {

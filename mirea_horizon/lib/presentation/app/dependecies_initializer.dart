@@ -1,9 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:mirea_horizon/data/repositories/local_data/sp_repository.dart';
-import 'package:mirea_horizon/data/services/calendar/calendar_service.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_event.dart';
-import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_state.dart';
 import 'package:mirea_horizon/presentation/bloc/test_bloc/test_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hive_flutter/hive_flutter.dart';
