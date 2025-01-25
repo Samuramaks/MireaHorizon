@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_state.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/intl.dart'; // Импортируем intl
+// Импортируем intl
 import 'package:intl/date_symbol_data_local.dart'; // Для локализации
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../data/models/calendar/calendar_model.dart';
 import '../widgets/custom_widget.dart';
@@ -55,6 +56,30 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Widget build(BuildContext context) {
     return CustomWidget(
       nameAppBar: 'Календарь',
+      bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(30.0),
+          child: Row(
+            textDirection: TextDirection.ltr,
+            children: [
+              Text(
+                _getContactionsDay(_focusedDay.day),
+                style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                width: 5.0,
+              ),
+              Column(
+                children: [
+                  Text(_getWeekdayByNumber(_focusedDay.weekday)),
+                  Text(
+                      "${_getMonthByNumber(_focusedDay.month)} ${_focusedDay.year}"),
+                ],
+              )
+            ],
+          )),
       body: BlocBuilder<CalendarBloc, CalendarState>(
         builder: (context, state) {
           if (state is CalendarLoading) {
@@ -77,9 +102,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
               child: Column(
                 children: [
                   TableCalendar(
+                    calendarStyle: CalendarStyle(
+                        selectedDecoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface,
+                            shape: BoxShape.circle)),
+                    calendarFormat: CalendarFormat.week,
                     headerStyle: const HeaderStyle(
                         formatButtonVisible: false, titleCentered: true),
-                    availableGestures: AvailableGestures.all,
                     startingDayOfWeek: StartingDayOfWeek.monday,
                     locale: 'ru-RU',
                     focusedDay: _focusedDay,
@@ -103,9 +132,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                   child: Container(
                                     // height: 7,
                                     width: 5,
-                                    decoration: const BoxDecoration(
+                                    decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: Colors.red,
+                                      color: Colors.blueAccent,
                                     ),
                                   ));
                             });
@@ -119,17 +148,23 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           return ListView.builder(
                               itemCount: value.length,
                               itemBuilder: (context, index) {
-                                return Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 4),
-                                  decoration: BoxDecoration(
+                                return GestureDetector(
+                                  onTap: () => _launchInBrowser(
+                                      Uri.parse(value[index].url)),
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 4),
+                                    decoration: BoxDecoration(
                                       border: Border.all(),
-                                      borderRadius: BorderRadius.circular(12)),
-                                  child: ListTile(
-                                    title: Text(value[index]
-                                        .name), // Отображаем название события
-
-                                    leading: Text(value[index].description),
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: ListTile(
+                                        title: Text(value[index]
+                                            .name), // Отображаем название события
+                                        subtitle:
+                                            Text(value[index].description),
+                                        leading: Image.network(
+                                            value[index].imageUrl)),
                                   ),
                                 );
                               });
@@ -145,5 +180,50 @@ class _CalendarScreenState extends State<CalendarScreen> {
         },
       ),
     );
+  }
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
+  String _getContactionsDay(int day) {
+    return day > 10 ? day.toString() : '0${day}';
+  }
+
+  String _getWeekdayByNumber(int number) {
+    var mapWeekday = {
+      1: "Пн",
+      2: "Вт",
+      3: "Ср",
+      4: "Чт",
+      5: "Пт",
+      6: "Сб",
+      7: "Вс",
+    };
+
+    return mapWeekday[number] ?? 'Некорректный номер дня';
+  }
+
+  String _getMonthByNumber(int number) {
+    Map<int, String> monthsOfYear = {
+      1: 'Января', // Январь
+      2: 'Февраля', // Февраль
+      3: 'Марта', // Март
+      4: 'Апреля', // Апрель
+      5: 'Мая', // Май
+      6: 'Июня', // Июнь
+      7: 'Июля', // Июль
+      8: 'Августа', // Август
+      9: 'Сентября', // Сентябрь
+      10: 'Октября', // ОктябрьT
+      11: 'Ноября', // Ноябрь
+      12: 'Декабря', // Декабрь
+    };
+    return monthsOfYear[number] ?? 'Некорректный номер месяца';
   }
 }

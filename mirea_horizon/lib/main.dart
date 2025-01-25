@@ -19,7 +19,7 @@ void main() async {
   await DependeciesInitializer.setup();
 
   // Для тестирования: выход из аккаунта при запуске
-  await FirebaseAuth.instance.signOut();
+  // await FirebaseAuth.instance.signOut();
 
   final authBloc = GetIt.instance<AuthBloc>();
   final GoRouter router = createAppRoute(authBloc);

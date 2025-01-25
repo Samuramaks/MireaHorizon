@@ -9,24 +9,6 @@ class DefaultNavBar extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
   void _onItemTapped(BuildContext context, int index) {
-    // switch (index) {
-    //   case 0:
-    //     context.go(BaseRoutes.main());
-    //     break;
-    //   case 1:
-    //     context.go(BaseRoutes.tests());
-    //     break;
-    //   case 2:
-    //     context.go(BaseRoutes.calendar());
-    //     break;
-    //   case 3:
-    //     context.go(BaseRoutes.progress());
-    //     break;
-    //   case 4:
-    //     context.go(BaseRoutes.profile());
-    //     break;
-    // }
-
     navigationShell.goBranch(
       index,
       initialLocation: index == navigationShell.currentIndex,
@@ -52,11 +34,11 @@ class DefaultNavBar extends StatelessWidget {
         selectedFontSize: 12,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
+            icon: Icon(Icons.home_outlined),
             label: 'Главная',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.folder),
+            icon: Icon(Icons.folder_open_outlined),
             label: 'Тестирование',
           ),
           BottomNavigationBarItem(
@@ -64,8 +46,8 @@ class DefaultNavBar extends StatelessWidget {
             label: 'Календарь',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.analytics_outlined),
-            label: 'Успеваемость',
+            icon: Icon(Icons.list_alt_sharp),
+            label: 'Прогресс',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline_rounded),

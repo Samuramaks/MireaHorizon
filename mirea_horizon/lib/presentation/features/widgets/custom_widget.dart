@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CustomWidget extends StatelessWidget {
-  const CustomWidget({super.key, required this.nameAppBar, required this.body});
+  const CustomWidget(
+      {super.key, required this.nameAppBar, required this.body, this.bottom});
   final String nameAppBar;
   final Widget body;
+  final PreferredSize? bottom;
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +18,7 @@ class CustomWidget extends StatelessWidget {
         ),
         backgroundColor: colorScheme.secondary,
         centerTitle: true,
+        bottom: bottom,
       ),
       body: body,
     );

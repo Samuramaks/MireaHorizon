@@ -3,14 +3,14 @@ class Event {
   final DateTime date;
   final String description;
   final String url;
-  final String? imageUrl;
+  final String imageUrl;
 
   Event({
     required this.name,
     required this.date,
     required this.description,
     required this.url,
-    this.imageUrl,
+    required this.imageUrl,
   });
 
   // Метод для создания объекта из JSON
@@ -20,7 +20,7 @@ class Event {
         date: DateTime.parse(json['date']), // Преобразуем строку в DateTime
         description: json['description'],
         url: json['url'], // Если URL есть, парсим его
-        imageUrl: json['imageUrl']);
+        imageUrl: json['image']);
   }
 
   // Метод для преобразования объекта в JSON

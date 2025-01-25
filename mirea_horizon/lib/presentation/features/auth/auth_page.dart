@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mirea_horizon/data/repositories/local_data/local_data.dart';
 import '../../bloc/auth_bloc/auth_bloc.dart';
 import '../../bloc/auth_bloc/auth_event.dart';
 import '../../bloc/auth_bloc/auth_state.dart';
@@ -14,12 +16,15 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage> {
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController(); // Новый контроллер для имени
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  // final spRepository = GetIt.instance<SPRepository>();
   bool _isLogin = true;
 
   @override
   void dispose() {
+    _nameController.dispose(); // Освобождаем контроллер имени
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -44,6 +49,20 @@ class _AuthPageState extends State<AuthPage> {
       }
     }
   }
+
+  // _onGetNameAndEmailBySP() async {
+  //   // Проверяем, существует ли уже электронная почта
+  //   String? existingEmail = await spRepository.getEmail();
+  //   if (existingEmail == null || existingEmail.isEmpty) {
+  //     await spRepository.setEmail(_emailController.text.trim());
+  //   }
+
+  //   // Проверяем, существует ли уже имя пользователя
+  //   String? existingUsername = await spRepository.getUsername();
+  //   if (existingUsername == null || existingUsername.isEmpty) {
+  //     await spRepository.setUsername(_nameController.text.trim());
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +93,23 @@ class _AuthPageState extends State<AuthPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      if (!_isLogin) ...[
+                        // Показываем поле имени только при регистрации
+                        TextFormField(
+                          controller: _nameController,
+                          decoration: const InputDecoration(
+                            labelText: 'Имя',
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Пожалуйста, введите имя';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                      ],
                       TextFormField(
                         controller: _emailController,
                         decoration: const InputDecoration(

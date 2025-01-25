@@ -13,6 +13,7 @@ class CalendarService implements CalendarDAO {
       print("Respone: r");
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
+        print(json.decode(utf8.decode(response.bodyBytes)));
         final List<dynamic> jsonData =
             json.decode(utf8.decode(response.bodyBytes));
         return jsonData.map((json) => Event.fromJson(json)).toList();

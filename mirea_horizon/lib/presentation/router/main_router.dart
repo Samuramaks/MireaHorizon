@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mirea_horizon/presentation/features/intro/intro_screen.dart';
 import 'package:mirea_horizon/presentation/router/export_main_widgets.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
 import '../bloc/auth_bloc/auth_state.dart';
 import '../features/auth/auth_page.dart';
+import '../features/splash/splash_screen.dart';
 import '../ui/base/base.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -14,7 +16,7 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 GoRouter createAppRoute(AuthBloc authBloc) {
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: '/',
+    initialLocation: '/splash',
     debugLogDiagnostics: true,
     refreshListenable: GoRouterRefreshStream(authBloc.stream),
     redirect: (BuildContext context, GoRouterState state) {
@@ -22,7 +24,7 @@ GoRouter createAppRoute(AuthBloc authBloc) {
 
       try {
         final authState = authBloc.state;
-        final isAuthPath = state.matchedLocation == '/';
+        final isAuthPath = state.matchedLocation == '/auth';
         final isInAppPath = state.matchedLocation.startsWith('/app');
 
         print('Auth State: $authState');
@@ -52,7 +54,7 @@ GoRouter createAppRoute(AuthBloc authBloc) {
         // Если пытается получить доступ к защищенным маршрутам
         if (isInAppPath) {
           print('Redirecting to auth page');
-          return '/';
+          return '/auth';
         }
         return null;
       } catch (e) {
@@ -62,7 +64,15 @@ GoRouter createAppRoute(AuthBloc authBloc) {
     },
     routes: [
       GoRoute(
-        path: '/',
+        path: '/splash',
+        builder: (context, state) => SplashScreen(),
+      ),
+      GoRoute(
+        path: '/intro',
+        builder: (context, state) => IntroScreen(),
+      ),
+      GoRoute(
+        path: '/auth',
         builder: (context, state) => const AuthPage(),
       ),
       StatefulShellRoute.indexedStack(
@@ -77,34 +87,6 @@ GoRouter createAppRoute(AuthBloc authBloc) {
             ProgressRouter(),
             ProfileRouter(),
           ])
-      // ShellRoute(
-      //   navigatorKey: _shellNavigatorKey,
-      //   builder: (context, state, child) {
-      //     return DefaultNavBar(child: child);
-      //   },
-      //   routes: [
-      //     GoRoute(
-      //       path: '/app/main',
-      //       builder: (context, state) => const MainScreen(),
-      //     ),
-      //     GoRoute(
-      //       path: '/app/tests',
-      //       builder: (context, state) => const TestsScreen(),
-      //     ),
-      //     GoRoute(
-      //       path: '/app/calendar',
-      //       builder: (context, state) => const CalendarScreen(),
-      //     ),
-      //     GoRoute(
-      //       path: '/app/progress',
-      //       builder: (context, state) => const ProgressScreen(),
-      //     ),
-      //     GoRoute(
-      //       path: '/app/profile',
-      //       builder: (context, state) => const ProfileScreen(),
-      //     ),
-      //   ],
-      // ),
     ],
   );
 }
