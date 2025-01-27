@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graphaello/graphaello.dart';
 
 import '../widgets/custom_widget.dart';
 
@@ -9,7 +10,11 @@ class ProgressScreen extends StatelessWidget {
     return const CustomWidget(
         nameAppBar: 'Успеваемость',
         body: Center(
-          child: Text('Успеваемость'),
+          child: PieChartWithLegend(data: [
+            PieData(name: 'Лягушки', value: 40, color: Colors.green),
+            PieData(name: 'Пчелы', value: 30, color: Colors.yellow),
+            PieData(name: 'Драконы', value: 30, color: Colors.red),
+          ]),
         ));
   }
 }
