@@ -13,7 +13,7 @@ class ProfileRouter extends StatefulShellBranch {
               GoRoute(
                   path: ProfileRoutes.base(),
                   builder: (BuildContext context, GoRouterState state) =>
-                      ProfileScreen(),
+                      const ProfileScreen(),
                   routes: [
                     GoRoute(
                       path: ProfileRoutes.details(),

@@ -70,4 +70,6 @@ abstract class AppColors {
   static const lightDark = Color(0xFF1b1b1b);
 
   static const purpleAccent = Colors.purpleAccent;
+
+  static const backgroundSplashScreen = Color.fromRGBO(58, 49, 111, 1);
 }

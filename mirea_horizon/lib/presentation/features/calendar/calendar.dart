@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mirea_horizon/data/repositories/auth_repository.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_state.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -26,6 +30,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   final DateTime _lastDay = DateTime(2100, 12, 31); // Последний день
   Map<DateTime, List<Event>> eventsMap = {};
   late final ValueNotifier<List<Event>> _selectedEvents;
+  late final bool _isVerifed;
 
   @override
   void initState() {
@@ -34,6 +39,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     _focusedDay = DateTime.now();
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay));
+    _isVerifed = FirebaseAuth.instance.currentUser!.emailVerified;
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -132,7 +138,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                   child: Container(
                                     // height: 7,
                                     width: 5,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: Colors.blueAccent,
                                     ),
@@ -149,8 +155,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               itemCount: value.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: () => _launchInBrowser(
-                                      Uri.parse(value[index].url)),
+                                  onTap: () {
+                                    _isVerifed
+                                        ? _launchInBrowser(
+                                            Uri.parse(value[index].url))
+                                        : Container();
+                                  },
                                   child: Container(
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 12, vertical: 4),
@@ -192,7 +202,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 
   String _getContactionsDay(int day) {
-    return day > 10 ? day.toString() : '0${day}';
+    return day > 10 ? day.toString() : '0$day';
   }
 
   String _getWeekdayByNumber(int number) {

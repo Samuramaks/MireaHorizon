@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:mirea_horizon/data/repositories/local_data/local_data.dart';
 import '../../bloc/auth_bloc/auth_bloc.dart';
 import '../../bloc/auth_bloc/auth_event.dart';
 import '../../bloc/auth_bloc/auth_state.dart';
@@ -44,6 +42,7 @@ class _AuthPageState extends State<AuthPage> {
               SignUpRequested(
                 _emailController.text.trim(),
                 _passwordController.text.trim(),
+                _nameController.text.trim(),
               ),
             );
       }
@@ -163,6 +162,13 @@ class _AuthPageState extends State<AuthPage> {
                               color: Theme.of(context).colorScheme.onSurface),
                         ),
                       ),
+                      TextButton(
+                          onPressed: () =>
+                              context.read<AuthBloc>().add(SignInAsGuest()),
+                          child: Text('Войти как гость',
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface)))
                     ],
                   ),
                 ),

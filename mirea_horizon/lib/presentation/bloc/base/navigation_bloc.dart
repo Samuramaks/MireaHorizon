@@ -11,6 +11,7 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
   NavigationBloc() : super(const NavigationState(0, false, false)) {
     on<NavigationSelectTabEvent>(_onNavigationSelectTabEvent);
     on<NavigationLoadEvent>(_onNavigationLoadEvent);
+    on<ResetNavigationEvent>(_onResetNavigationEvent);
   }
 
   final SPRepository _spLocalRepository = GetIt.instance<SPRepository>();
@@ -26,5 +27,10 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
     final isOpen =
         await _spLocalRepository.getBoolLocalData(LocalKeys.openKey) ?? false;
     emit(state.copyWith(isLoading: isOpen));
+  }
+
+  void _onResetNavigationEvent(
+      ResetNavigationEvent event, Emitter<NavigationState> emit) {
+    emit(state.copyWith(currentIndex: 0)); // Сброс на экран новостей (индекс 0)
   }
 }

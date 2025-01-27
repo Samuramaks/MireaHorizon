@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:mirea_horizon/data/repositories/local_data/sp_repository.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -43,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).colorScheme.onSurface,
       body: Center(
         child: AnimatedOpacity(
           opacity: _opacity,
@@ -53,17 +55,22 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               Image.asset('assets/images/mirea.png'),
               const SizedBox(height: 20),
-              const Text('e-Learning Platform'),
+              const Text(
+                'e-Learning Platform',
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              ),
               // const CircularProgressIndicator(),
               const Spacer(),
               Text(
-                'Copyright © ${DateTime.now().year} Technological University',
-              ),
+                  'Copyright © ${DateTime.now().year} Technological University',
+                  style: const TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold)),
               const Padding(
                   padding: EdgeInsets.all(16.0), // Отступы вокруг текста
-                  child: Text(
-                    'All Right Reserved',
-                  )),
+                  child: Text('All Right Reserved',
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold))),
             ],
           ),
         ),

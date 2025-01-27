@@ -59,7 +59,7 @@ class MireaColorScheme extends ColorScheme {
       error: AppColors.defaultErrorLightColor,
       onError: AppColors.defaultMainLightColor,
       surface: AppColors.selectedItemBar,
-      onSurface: AppColors.defaultBlackColor);
+      onSurface: AppColors.backgroundSplashScreen);
 
   static get dark => MireaColorScheme(
       brightness: Brightness.dark,

@@ -55,9 +55,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         print('Attempting to sign up with email: ${event.email}');
         final credential = await authRepository.signUp(
-          email: event.email,
-          password: event.password,
-        );
+            email: event.email,
+            password: event.password,
+            displayName: event.displayName);
         print('Sign up successful for user: ${credential.user?.email}');
         // Состояние будет обновлено через stream listener
       } catch (e) {
@@ -77,6 +77,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         // Состояние будет обновлено через stream listener
       } catch (e) {
         print('Error during sign out: $e');
+        emit(AuthError(e.toString()));
+      }
+    });
+
+    on<SignInAsGuest>((event, emit) async {
+      print('Processing SignInAsGuest event');
+      emit(Loading());
+
+      try {
+        // Логика для входа как гость
+        UserCredential userCredential =
+            await FirebaseAuth.instance.signInAnonymously();
+        print('Guest signed in: ${userCredential.user?.uid}');
+        emit(Authenticated(userCredential.user!));
+      } catch (e) {
+        print('Error during guest sign in: $e');
         emit(AuthError(e.toString()));
       }
     });

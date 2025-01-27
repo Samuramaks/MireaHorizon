@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class IntroScreen extends StatefulWidget {
+  const IntroScreen({super.key});
+
   @override
   _IntroScreenState createState() => _IntroScreenState();
 }
@@ -70,7 +72,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 backgroundColor: WidgetStatePropertyAll(
                     Theme.of(context).colorScheme.surface)),
             onPressed: _nextPage,
-            child: Text(
+            child: const Text(
               'Далее',
               style: TextStyle(color: Colors.white),
             ),

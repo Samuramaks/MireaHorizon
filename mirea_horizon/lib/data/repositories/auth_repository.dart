@@ -10,14 +10,17 @@ class AuthRepository {
     print('AuthRepository: Starting to listen to auth state changes');
     return _firebaseAuth.authStateChanges().asBroadcastStream()
       ..listen(
-        (user) => print('AuthRepository: Auth state changed - User: ${user?.email ?? 'None'}'),
-        onError: (error) => print('AuthRepository: Error in auth state stream: $error'),
+        (user) => print(
+            'AuthRepository: Auth state changed - User: ${user?.email ?? 'None'}'),
+        onError: (error) =>
+            print('AuthRepository: Error in auth state stream: $error'),
       );
   }
 
   Future<UserCredential> signUp({
     required String email,
     required String password,
+    required String displayName,
   }) async {
     try {
       print('AuthRepository: Attempting to sign up user: $email');
@@ -25,13 +28,16 @@ class AuthRepository {
         email: email,
         password: password,
       );
-      print('AuthRepository: Sign up successful for user: ${credential.user?.email}');
+      await credential.user!.updateDisplayName(displayName);
+      await credential.user!.reload();
+      print(
+          'AuthRepository: Sign up successful for user: ${credential.user?.email}');
       return credential;
     } on FirebaseAuthException catch (e) {
       print('AuthRepository: FirebaseAuthException during sign up:');
       print('Error code: ${e.code}');
       print('Error message: ${e.message}');
-      
+
       if (e.code == 'weak-password') {
         throw Exception('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
@@ -54,13 +60,14 @@ class AuthRepository {
         email: email,
         password: password,
       );
-      print('AuthRepository: Sign in successful for user: ${credential.user?.email}');
+      print(
+          'AuthRepository: Sign in successful for user: ${credential.user?.email}');
       return credential;
     } on FirebaseAuthException catch (e) {
       print('AuthRepository: FirebaseAuthException during sign in:');
       print('Error code: ${e.code}');
       print('Error message: ${e.message}');
-      
+
       if (e.code == 'user-not-found') {
         throw Exception('No user found for that email.');
       } else if (e.code == 'wrong-password') {
@@ -81,6 +88,15 @@ class AuthRepository {
     } catch (e) {
       print('AuthRepository: Error during sign out: $e');
       throw Exception(e.toString());
+    }
+  }
+
+  Future<void> emailVerification() async {
+    try {
+      await _firebaseAuth.currentUser!.sendEmailVerification();
+      await _firebaseAuth.currentUser!.reload();
+    } catch (e) {
+      print('AuthRepository: Error email verification: $e');
     }
   }
 }

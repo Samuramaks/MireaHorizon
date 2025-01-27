@@ -51,6 +51,7 @@ GoRouter createAppRoute(AuthBloc authBloc) {
 
         // Если пользователь не аутентифицирован
         print('User is not authenticated');
+
         // Если пытается получить доступ к защищенным маршрутам
         if (isInAppPath) {
           print('Redirecting to auth page');
@@ -65,11 +66,11 @@ GoRouter createAppRoute(AuthBloc authBloc) {
     routes: [
       GoRoute(
         path: '/splash',
-        builder: (context, state) => SplashScreen(),
+        builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
         path: '/intro',
-        builder: (context, state) => IntroScreen(),
+        builder: (context, state) => const IntroScreen(),
       ),
       GoRoute(
         path: '/auth',

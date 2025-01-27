@@ -14,3 +14,5 @@ class NavigationSelectTabEvent extends NavigationEvent {
 
   const NavigationSelectTabEvent(this.selectedTab);
 }
+
+class ResetNavigationEvent extends NavigationEvent {}
