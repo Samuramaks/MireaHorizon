@@ -39,8 +39,8 @@ dependencies:
   hive_flutter: ^1.1.0
   json_annotation: ^4.9.0
   http: ^1.2.2
-  firebase_core: ^2.14.0
-  firebase_auth: ^4.7.2
+  firebase_core: 3.12.1
+  firebase_auth: 5.5.1
   xml: ^6.3.0
   url_launcher: ^6.2.2
   intl: ^0.18.1
@@ -79,6 +79,7 @@ flutter:
     - assets/images/intro1.jpeg
     - assets/images/intro2.jpeg
     - assets/images/intro3.jpeg
+    - assets/images/coin.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

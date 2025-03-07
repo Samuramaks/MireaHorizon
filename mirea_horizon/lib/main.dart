@@ -1,6 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mirea_horizon/firebase_options.dart';
 import 'package:mirea_horizon/presentation/mirea_horizon_theme/theme/theme.dart';
 
 import 'presentation/app/app_initializer.dart';
@@ -14,6 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Инициализация Firebase и зависимостей
+  // ?await Firebase.initializeApp(options: DefaultFirebaseOptions.ios);
   await AppInitializer.initializeFirebase();
   await DependeciesInitializer.setup();
 

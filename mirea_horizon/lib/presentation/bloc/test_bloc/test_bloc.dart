@@ -10,14 +10,14 @@ class TestBloc extends Bloc<TestEvent, TestState> {
       : _testService = testService,
         super(TestInitial()) {
     on<FetchTests>(_onFetchTests);
-    // on<FetchTestDetail>(_onFetchTestDetail);
+    on<FetchTestDetail>(_onFetchTestDetail);
+    on<RefreshTests>(_onRefreshTests);
   }
 
   Future<void> _onFetchTests(FetchTests event, Emitter<TestState> emit) async {
     try {
       emit(TestLoading());
       final tests = await _testService.getTests();
-      print('{iy}');
       print(tests);
       emit(TestsLoaded(tests));
     } catch (e) {
@@ -31,6 +31,18 @@ class TestBloc extends Bloc<TestEvent, TestState> {
       emit(TestLoading());
       final test = await _testService.getTestById(event.testId);
       emit(TestDetailLoaded(test));
+    } catch (e) {
+      emit(TestError(e.toString()));
+    }
+  }
+
+  Future<void> _onRefreshTests(
+      RefreshTests event, Emitter<TestState> emit) async {
+    try {
+      emit(TestLoading());
+      final tests = await _testService.getTests();
+      print(tests);
+      emit(TestsLoaded(tests));
     } catch (e) {
       emit(TestError(e.toString()));
     }

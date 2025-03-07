@@ -2,6 +2,10 @@ import 'package:get_it/get_it.dart';
 import 'package:mirea_horizon/data/repositories/local_data/sp_repository.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_event.dart';
+import 'package:mirea_horizon/presentation/bloc/news_bloc/news_bloc.dart';
+import 'package:mirea_horizon/presentation/bloc/news_bloc/news_event.dart';
+import 'package:mirea_horizon/presentation/bloc/progress_bloc/progress_bloc.dart';
+import 'package:mirea_horizon/presentation/bloc/progress_bloc/progress_event.dart';
 import 'package:mirea_horizon/presentation/bloc/test_bloc/test_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -42,7 +46,13 @@ class DependeciesInitializer {
     getIt.registerFactory<TestBloc>(
         () => TestBloc(testService: getIt<TestService>()));
 
+    //News
+    getIt.registerSingleton<NewsBloc>(NewsBloc()..add(FetchNews()));
+
     //Calendar
     getIt.registerSingleton<CalendarBloc>(CalendarBloc()..add(FetchCalendar()));
+
+    //Progress
+    getIt.registerSingleton<ProgressBloc>(ProgressBloc()..add(FetchProgress()));
   }
 }

@@ -2,5 +2,5 @@ import 'package:mirea_horizon/presentation/router/routes/data_source/route_const
 
 class ProfileRoutes {
   static const base = RouterConst("/app/profile");
-  static const details = RouterConst("details", base: ProfileRoutes.base);
+  static const settings = RouterConst("settings", base: ProfileRoutes.base);
 }

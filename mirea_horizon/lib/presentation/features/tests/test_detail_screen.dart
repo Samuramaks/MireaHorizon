@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mirea_horizon/data/models/tests/test_models.dart';
-import 'test_result_screen.dart';
 
 class TestDetailScreen extends StatefulWidget {
   final Test test;
@@ -28,19 +28,14 @@ class _TestDetailScreenState extends State<TestDetailScreen> {
         score++;
       }
     }
-
-    // Используем Navigator.popUntil для возврата на две страницы назад
-    Navigator.popUntil(
-        context, (route) => route.isFirst); // Возвращаемся на первую страницу
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => TestResultScreen(
-          score: score,
-          totalQuestions: widget.test.questions.length,
-        ),
-      ),
+    final test = widget.test;
+    final args = TestResultArguments(
+      score: score,
+      coins: score,
+      totalQuestions: test.questions.length,
+      nameTest: test.nameTest,
     );
+    context.go('/app/tests/result', extra: args);
   }
 
   @override
@@ -121,4 +116,18 @@ class QuestionCard extends StatelessWidget {
       ),
     );
   }
+}
+
+class TestResultArguments {
+  final int score;
+  final int coins;
+  final int totalQuestions;
+  final String nameTest;
+
+  TestResultArguments({
+    required this.score,
+    required this.coins,
+    required this.totalQuestions,
+    required this.nameTest,
+  });
 }

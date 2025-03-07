@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mirea_horizon/data/models/user/user_model.dart';
+import 'package:mirea_horizon/data/repositories/user_repository/user_repository.dart';
 import '../../bloc/auth_bloc/auth_bloc.dart';
 import '../../bloc/auth_bloc/auth_event.dart';
 import '../../bloc/auth_bloc/auth_state.dart';
@@ -14,10 +16,11 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController(); // Новый контроллер для имени
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   // final spRepository = GetIt.instance<SPRepository>();
+  final UserRepository userRepository = UserRepository();
   bool _isLogin = true;
 
   @override
@@ -45,6 +48,8 @@ class _AuthPageState extends State<AuthPage> {
                 _nameController.text.trim(),
               ),
             );
+        userRepository
+            .postUser(UserCustom(email: _emailController.text.trim()));
       }
     }
   }

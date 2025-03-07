@@ -8,24 +8,28 @@ class NewsService {
 
     if (response.statusCode == 200) {
       final document = html.parse(response.body);
-      final newsItems = document.querySelectorAll('.uk-margin-top.slider_body');
+      final newsItems = document.querySelectorAll('.uk-card.uk-card-default');
 
       List<NewsItem> newsList = newsItems.map((element) {
         final titleElement = element.querySelector('.uk-link-reset');
         final linkElement = titleElement?.attributes['href'];
         final title = titleElement?.text.trim();
+
+        // Извлекаем дату
         final dateElement =
-            element.querySelector('.news-date'); // Добавьте, если нужно
-        final date = dateElement?.text.trim() ?? ''; // Добавьте, если нужно
-        final imageElement =
-            element.querySelector('img'); // Добавьте, если нужно
-        final imageUrl =
-            imageElement?.attributes['src'] ?? ''; // Добавьте, если нужно
+            element.querySelector('.uk-margin-small-bottom.uk-text-small');
+        final date = dateElement?.text.trim() ?? '';
+
+        // Извлекаем URL изображения
+        final imageElement = element.querySelector('.uk-card-media-top img');
+        final imageUrl = imageElement?.attributes['data-src'] ?? '';
+
+        // print('https://www.mirea.ru$imageUrl');
 
         return NewsItem(
           title: title ?? '',
           date: date,
-          imageUrl: imageUrl,
+          imageUrl: 'https://www.mirea.ru$imageUrl',
           link: linkElement != null ? 'https://mirea.ru$linkElement' : '',
           description: '', // Добавьте, если нужно
         );

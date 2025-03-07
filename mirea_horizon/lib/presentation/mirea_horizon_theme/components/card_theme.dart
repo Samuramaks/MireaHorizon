@@ -5,7 +5,7 @@ import '../mirea_app_theme.dart';
 class IgceCardTheme extends CardTheme {
   final Brightness brightness;
 
-  IgceCardTheme({required this.brightness})
+  IgceCardTheme({super.key, required this.brightness})
       : super(
             color: brightness == Brightness.light
                 ? AppColors.backgroundAppLightColor

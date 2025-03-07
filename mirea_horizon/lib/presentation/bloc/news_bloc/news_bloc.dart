@@ -4,12 +4,10 @@ import 'news_event.dart'; // Импортируйте события
 import 'news_state.dart'; // Импортируйте состояния
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
-  final NewsService _newsService;
+  final NewsService _newsService = NewsService();
 
   // Измените конструктор, чтобы принимать newsService
-  NewsBloc({required NewsService newsService})
-      : _newsService = newsService,
-        super(NewsInitial()) {
+  NewsBloc() : super(NewsInitial()) {
     on<FetchNews>(_onFetchNews);
     on<RefreshNews>(_onRefreshNews);
   }

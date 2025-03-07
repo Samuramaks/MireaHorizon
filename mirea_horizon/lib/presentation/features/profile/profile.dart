@@ -56,10 +56,9 @@ class _ProfileScreen extends State<ProfileScreen> {
       actions: [
         user!.emailVerified ? const Icon(Icons.verified) : Container(),
         IconButton(
-          icon: const Icon(Icons.logout),
+          icon: const Icon(Icons.settings),
           onPressed: () {
-            context.read<AuthBloc>().add(SignOutRequested());
-            context.read<NavigationBloc>().add(ResetNavigationEvent());
+            context.go('/app/profile/settings');
           },
           color: Theme.of(context).colorScheme.onSurface,
         ),
@@ -106,12 +105,13 @@ class _ProfileScreen extends State<ProfileScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           title: const Text('Подтверждение почты'),
           content: const Text(
               'Подтверждение отправлено на почту, которая была указана при регистрации'),
           actions: <Widget>[
             TextButton(
-              child: Text('Закрыть'),
+              child: const Text('Закрыть'),
               onPressed: () {
                 Navigator.of(context).pop(); // Закрыть диалог
               },

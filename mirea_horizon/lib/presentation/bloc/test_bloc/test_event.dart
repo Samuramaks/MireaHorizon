@@ -15,3 +15,5 @@ class FetchTestDetail extends TestEvent {
   @override
   List<Object?> get props => [testId];
 }
+
+class RefreshTests extends TestEvent {}

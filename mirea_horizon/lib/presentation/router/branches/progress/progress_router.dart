@@ -13,7 +13,7 @@ class ProgressRouter extends StatefulShellBranch {
               GoRoute(
                   path: ProgressRoutes.base(),
                   builder: (BuildContext context, GoRouterState state) =>
-                      const ProgressScreen(),
+                      ProgressScreen(),
                   routes: [
                     GoRoute(
                       path: ProgressRoutes.details(),

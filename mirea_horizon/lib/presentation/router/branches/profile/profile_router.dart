@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mirea_horizon/presentation/features/profile/profile_settings.dart';
 import 'profile_routes_constants.dart';
-import '../../../features/details/details_page.dart';
 import '../../../features/profile/profile.dart';
 
 class ProfileRouter extends StatefulShellBranch {
@@ -16,9 +16,9 @@ class ProfileRouter extends StatefulShellBranch {
                       const ProfileScreen(),
                   routes: [
                     GoRoute(
-                      path: ProfileRoutes.details(),
+                      path: ProfileRoutes.settings(),
                       builder: (context, state) =>
-                          const DetailsScreen(nameTitle: 'profile'),
+                          const ProfileSettingsScreen(),
                     )
                   ])
             ]);
