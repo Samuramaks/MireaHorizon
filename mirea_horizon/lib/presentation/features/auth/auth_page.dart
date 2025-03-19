@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mirea_horizon/data/models/user/user_model.dart';
 import 'package:mirea_horizon/data/repositories/user_repository/user_repository.dart';
+import '../../../data/repositories/local_data/sp_repository.dart';
 import '../../bloc/auth_bloc/auth_bloc.dart';
 import '../../bloc/auth_bloc/auth_event.dart';
 import '../../bloc/auth_bloc/auth_state.dart';
@@ -19,7 +21,7 @@ class _AuthPageState extends State<AuthPage> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  // final spRepository = GetIt.instance<SPRepository>();
+  final spRepository = GetIt.instance<SPRepository>();
   final UserRepository userRepository = UserRepository();
   bool _isLogin = true;
 
@@ -31,7 +33,7 @@ class _AuthPageState extends State<AuthPage> {
     super.dispose();
   }
 
-  void _submitForm() {
+  void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       if (_isLogin) {
         context.read<AuthBloc>().add(
@@ -48,8 +50,10 @@ class _AuthPageState extends State<AuthPage> {
                 _nameController.text.trim(),
               ),
             );
-        userRepository
+        await userRepository
             .postUser(UserCustom(email: _emailController.text.trim()));
+
+        await spRepository.setNewUserFlag(true);
       }
     }
   }

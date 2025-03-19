@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mirea_horizon/data/models/tests/test_models.dart';
 import 'package:mirea_horizon/data/repositories/user_repository/user_repository.dart';
 import 'package:mirea_horizon/presentation/bloc/test_bloc/test_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/test_bloc/test_event.dart';
+import '../../../data/repositories/local_data/sp_repository.dart';
 import '../../bloc/test_bloc/test_state.dart';
 
 class TestsScreen extends StatefulWidget {
@@ -19,11 +21,20 @@ class _TestsScreenState extends State<TestsScreen> {
   final UserRepository userRepository = UserRepository();
   int coins = 0;
   User? user = FirebaseAuth.instance.currentUser!;
+  final spRepository = GetIt.instance<SPRepository>();
   @override
   void initState() {
     super.initState();
-    context.read<TestBloc>().add(FetchTests());
+    _checkForNewUser();
+
+    // context.read<TestBloc>().add(FetchTests());
     _updateCoins();
+  }
+
+  void _checkForNewUser() async {
+    await _isNewUser()
+        ? context.read<TestBloc>().add(FetchTestForNewUser())
+        : context.read<TestBloc>().add(FetchTests());
   }
 
   Future<void> _updateCoins() async {
@@ -38,6 +49,10 @@ class _TestsScreenState extends State<TestsScreen> {
   Future<void> _refreshData(BuildContext context) async {
     _updateCoins();
     BlocProvider.of<TestBloc>(context).add(RefreshTests());
+  }
+
+  Future<bool> _isNewUser() async {
+    return await spRepository.isNewUser(); // Проверяем, новый ли пользователь
   }
 
   @override

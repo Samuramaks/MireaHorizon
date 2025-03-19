@@ -12,6 +12,7 @@ class TestBloc extends Bloc<TestEvent, TestState> {
     on<FetchTests>(_onFetchTests);
     on<FetchTestDetail>(_onFetchTestDetail);
     on<RefreshTests>(_onRefreshTests);
+    on<FetchTestForNewUser>(_onFetchTestForNewUser);
   }
 
   Future<void> _onFetchTests(FetchTests event, Emitter<TestState> emit) async {
@@ -43,6 +44,18 @@ class TestBloc extends Bloc<TestEvent, TestState> {
       final tests = await _testService.getTests();
       print(tests);
       emit(TestsLoaded(tests));
+    } catch (e) {
+      emit(TestError(e.toString()));
+    }
+  }
+
+  Future<void> _onFetchTestForNewUser(
+      FetchTestForNewUser event, Emitter<TestState> emit) async {
+    try {
+      emit(TestLoading());
+      final test = await _testService.getTestForNewUser();
+      print(test);
+      emit(TestsLoaded(test));
     } catch (e) {
       emit(TestError(e.toString()));
     }

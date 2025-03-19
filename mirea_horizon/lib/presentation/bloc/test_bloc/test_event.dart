@@ -7,6 +7,8 @@ abstract class TestEvent extends Equatable {
 
 class FetchTests extends TestEvent {}
 
+class FetchTestForNewUser extends TestEvent {}
+
 class FetchTestDetail extends TestEvent {
   final int testId;
 

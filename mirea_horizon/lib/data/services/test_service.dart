@@ -14,7 +14,14 @@ class TestService {
       if (response.statusCode == 200) {
         final List<dynamic> jsonData =
             json.decode(utf8.decode(response.bodyBytes));
-        return jsonData.map((json) => Test.fromJson(json)).toList();
+        // Преобразуем JSON в список тестов
+        List<Test> tests = jsonData.map((json) => Test.fromJson(json)).toList();
+
+        // Фильтруем тесты, исключая те, у которых уровень NoLevel
+        tests =
+            tests.where((test) => test.difficultyLevel != 'NoLevel').toList();
+
+        return tests;
       } else {
         throw Exception('Failed to load tests');
       }
@@ -31,6 +38,22 @@ class TestService {
         return Test.fromJson(json.decode(response.body));
       }
       throw Exception('Failed to load test');
+    } catch (e) {
+      throw Exception('Error fetching test: $e');
+    }
+  }
+
+  Future<List<Test>> getTestForNewUser() async {
+    try {
+      final response = await http
+          .get(Uri.parse('$baseUrl/find/level?difficultyLevel=NoLevel'));
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonData =
+            json.decode(utf8.decode(response.bodyBytes));
+        return jsonData.map((json) => Test.fromJson(json)).toList();
+      } else {
+        throw Exception('Failed to load tests');
+      }
     } catch (e) {
       throw Exception('Error fetching test: $e');
     }

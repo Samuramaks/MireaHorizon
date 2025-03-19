@@ -13,7 +13,6 @@ class TestDetailScreen extends StatefulWidget {
 
 class _TestDetailScreenState extends State<TestDetailScreen> {
   List<String?> selectedAnswers = [];
-
   @override
   void initState() {
     super.initState();
@@ -22,10 +21,28 @@ class _TestDetailScreenState extends State<TestDetailScreen> {
   }
 
   void submitTest() {
+    int programmingScore = 0;
+    int designScore = 0;
+    int analytScore = 0;
     int score = 0;
-    for (int i = 0; i < widget.test.questions.length; i++) {
-      if (selectedAnswers[i] == widget.test.questions[i].correctAnswer) {
-        score++;
+    if (widget.test.difficultyLevel == 'NoLevel') {
+      for (int i = 0; i < widget.test.questions.length; i++) {
+        if (selectedAnswers[i] == widget.test.questions[i].correctAnswer) {
+          if (i < 3) {
+            programmingScore++; // Первые 3 вопроса - программирование
+          } else if (i < 6) {
+            designScore++; // Следующие 3 вопроса - дизайн
+          } else {
+            analytScore++; // Последние 4 вопроса - системное администрирование
+          }
+        }
+      }
+      score = programmingScore + designScore + analytScore;
+    } else {
+      for (int i = 0; i < widget.test.questions.length; i++) {
+        if (selectedAnswers[i] == widget.test.questions[i].correctAnswer) {
+          score++;
+        }
       }
     }
     final test = widget.test;
@@ -34,6 +51,10 @@ class _TestDetailScreenState extends State<TestDetailScreen> {
       coins: score,
       totalQuestions: test.questions.length,
       nameTest: test.nameTest,
+      level: test.difficultyLevel,
+      designScore: designScore,
+      programmingScore: programmingScore,
+      analytScore: analytScore,
     );
     context.go('/app/tests/result', extra: args);
   }
@@ -123,11 +144,19 @@ class TestResultArguments {
   final int coins;
   final int totalQuestions;
   final String nameTest;
+  final int programmingScore;
+  final int designScore;
+  final int analytScore;
+  final String level;
 
   TestResultArguments({
     required this.score,
     required this.coins,
     required this.totalQuestions,
     required this.nameTest,
+    required this.level,
+    this.designScore = 0,
+    this.programmingScore = 0,
+    this.analytScore = 0,
   });
 }

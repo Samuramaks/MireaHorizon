@@ -61,4 +61,16 @@ class SPRepository {
   Future<String?> getEmail() async {
     return preferences.getString('email');
   }
+
+  // Метод для установки флага нового пользователя
+  Future<void> setNewUserFlag(bool isNewUser) async {
+    await setBoolLocalData('isNewUser', isNewUser);
+  }
+
+  // Метод для получения флага нового пользователя
+  Future<bool> isNewUser() async {
+    bool? isNewUser = await getBoolLocalData('isNewUser');
+    return isNewUser ??
+        true; // Если флаг не установлен, считаем, что это новый пользователь
+  }
 }
