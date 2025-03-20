@@ -13,6 +13,8 @@ class TestBloc extends Bloc<TestEvent, TestState> {
     on<FetchTestDetail>(_onFetchTestDetail);
     on<RefreshTests>(_onRefreshTests);
     on<FetchTestForNewUser>(_onFetchTestForNewUser);
+    on<FetchTestForDirection>(_onFetchTestForDirection);
+    on<FetchTestForDifficultyLevel>(_onFetchTestForDifficultyLevel);
   }
 
   Future<void> _onFetchTests(FetchTests event, Emitter<TestState> emit) async {
@@ -54,6 +56,43 @@ class TestBloc extends Bloc<TestEvent, TestState> {
     try {
       emit(TestLoading());
       final test = await _testService.getTestForNewUser();
+      print(test);
+      emit(TestsLoaded(test));
+    } catch (e) {
+      emit(TestError(e.toString()));
+    }
+  }
+
+  Future<void> _onFetchTestForDirection(
+      FetchTestForDirection event, Emitter<TestState> emit) async {
+    final test;
+    try {
+      emit(TestLoading());
+      if (event.direct == 'Total') {
+        test = await _testService.getTests();
+      } else {
+        test = await _testService.getTestForDirection(event.direct);
+      }
+
+      print(test);
+      emit(TestsLoaded(test));
+    } catch (e) {
+      emit(TestError(e.toString()));
+    }
+  }
+
+  Future<void> _onFetchTestForDifficultyLevel(
+      FetchTestForDifficultyLevel event, Emitter<TestState> emit) async {
+    final test;
+    try {
+      emit(TestLoading());
+      if (event.difficultyLevel == 'All') {
+        test = await _testService.getTests();
+      } else {
+        test =
+            await _testService.getTestForDifficultyLevel(event.difficultyLevel);
+      }
+
       print(test);
       emit(TestsLoaded(test));
     } catch (e) {

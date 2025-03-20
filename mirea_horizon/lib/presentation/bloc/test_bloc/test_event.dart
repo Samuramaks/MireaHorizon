@@ -9,6 +9,21 @@ class FetchTests extends TestEvent {}
 
 class FetchTestForNewUser extends TestEvent {}
 
+class FetchTestForDirection extends TestEvent {
+  final String direct;
+
+  FetchTestForDirection(this.direct);
+}
+
+class FetchTestForDifficultyLevel extends TestEvent {
+  final String difficultyLevel;
+
+  FetchTestForDifficultyLevel(this.difficultyLevel);
+
+  @override
+  List<Object> get props => [difficultyLevel];
+}
+
 class FetchTestDetail extends TestEvent {
   final int testId;
 

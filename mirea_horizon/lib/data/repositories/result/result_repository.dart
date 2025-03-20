@@ -36,7 +36,7 @@ class ResultRepository {
 
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = json.decode(response.body);
-      print('JSon: ${jsonResponse}');
+      print('JSon: $jsonResponse');
       return jsonResponse.map((result) => Result.fromJson(result)).toList();
     } else {
       throw Exception(

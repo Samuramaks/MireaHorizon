@@ -2,14 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mirea_horizon/data/repositories/auth_repository.dart';
-import 'package:mirea_horizon/main.dart';
-import 'package:mirea_horizon/presentation/bloc/auth_bloc/auth_state.dart';
-
+import 'package:mirea_horizon/presentation/bloc/auth_bloc/auth_event.dart';
+import 'package:mirea_horizon/presentation/bloc/base/navigation_bloc.dart';
+import 'package:mirea_horizon/presentation/features/widgets/utils.dart';
 import '../../bloc/auth_bloc/auth_bloc.dart';
-import '../../bloc/auth_bloc/auth_event.dart';
-import '../../bloc/base/navigation_bloc.dart';
+import '../../bloc/test_bloc/test_bloc.dart';
+import '../../bloc/test_bloc/test_event.dart';
 import '../widgets/custom_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -25,6 +24,15 @@ class _ProfileScreen extends State<ProfileScreen> {
   User? user = FirebaseAuth.instance.currentUser!;
   AuthRepository authRepository = GetIt.instance<AuthRepository>();
 
+  // Переменная для хранения выбранного направления
+  String? selectedDirection;
+  final Map<String, String> testDirections = {
+    'Общее': 'Total',
+    'Программирование': 'Programmer',
+    'Дизайн': 'Designer Education',
+    'Аналитика': 'Analyst Education',
+  };
+
   @override
   void initState() {
     super.initState();
@@ -34,10 +42,8 @@ class _ProfileScreen extends State<ProfileScreen> {
 
   void _getNameAndEmailBySP() async {
     setState(() {
-      name = user!.displayName ??
-          'Имя не указано'; // Устанавливаем значение по умолчанию
-      email = user!.email ??
-          'Электронная почта не указана'; // Устанавливаем значение по умолчанию
+      name = user!.displayName ?? 'Имя не указано';
+      email = user!.email ?? 'Электронная почта не указана';
     });
   }
 
@@ -50,51 +56,78 @@ class _ProfileScreen extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(user!.emailVerified);
     return CustomWidget(
-      nameAppBar: 'Профиль ',
+      nameAppBar: 'Профиль',
       actions: [
         user!.emailVerified ? const Icon(Icons.verified) : Container(),
-        IconButton(
-          icon: const Icon(Icons.settings),
-          onPressed: () {
-            context.go('/app/profile/settings');
-          },
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
       ],
-      body: Center(
-        child: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            if (state is Loading) {
-              return const CircularProgressIndicator();
-            } else if (state is AuthError) {
-              return Text('Ошибка: ${state.error}');
-            } else if (state is Authenticated) {
-              if (state.user.email == null) {
-                return const Text('Вы не авторизованы');
-              }
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(name),
-                    Text(email),
-                    user!.emailVerified
-                        ? Container()
-                        : TextButton(
-                            onPressed: () {
-                              authRepository.emailVerification();
-                              _showDialog(context);
-                            },
-                            child: const Text('Подтвердите почту'))
-                  ],
-                ),
-              );
-            } else {
-              return const Text('Вы не авторизованы');
-            }
-          },
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Информация о пользователе
+            Text(
+              name,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              email,
+              style: const TextStyle(fontSize: 18, color: Colors.grey),
+            ),
+            const SizedBox(height: 8),
+            if (!user!.emailVerified)
+              ElevatedButton(
+                onPressed: () {
+                  authRepository.emailVerification();
+                  _showDialog(context);
+                },
+                child: const Text('Подтвердить почту'),
+              ),
+            const SizedBox(height: 20),
+            // Кнопки направлений
+            MyUtils.buildDirectionInfo(context),
+
+            const SizedBox(height: 20),
+
+            // Выпадающий список для выбора направления
+            const Text(
+              'Выберите направление:',
+              style: TextStyle(fontSize: 16),
+            ),
+            DropdownButton<String>(
+              value: selectedDirection,
+              hint: const Text('Выберите направление'),
+              items: testDirections.keys.map((String direction) {
+                return DropdownMenuItem<String>(
+                  value: direction,
+                  child: Text(direction),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedDirection = newValue;
+
+                  print('SelectedDirect: ${testDirections[selectedDirection]}');
+                  context.read<TestBloc>().add(FetchTestForDirection(
+                      testDirections[selectedDirection]!));
+                });
+              },
+            ),
+            const SizedBox(height: 20),
+
+            TextButton(
+              onPressed: () {
+                context.read<AuthBloc>().add(SignOutRequested());
+                context.read<NavigationBloc>().add(ResetNavigationEvent());
+              },
+              child: const Text(
+                'Выйти из профиля',
+                style: TextStyle(fontSize: 16, color: Colors.redAccent),
+              ),
+            ),
+          ],
         ),
       ),
     );

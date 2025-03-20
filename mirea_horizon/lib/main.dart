@@ -1,8 +1,6 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mirea_horizon/firebase_options.dart';
 import 'package:mirea_horizon/presentation/mirea_horizon_theme/theme/theme.dart';
 
 import 'presentation/app/app_initializer.dart';

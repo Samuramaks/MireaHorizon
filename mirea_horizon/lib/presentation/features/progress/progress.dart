@@ -67,7 +67,8 @@ class ScoreCard extends StatelessWidget {
   final int correctAnswers;
   final int totalQuestions;
 
-  ScoreCard({
+  const ScoreCard({
+    super.key,
     required this.testName,
     required this.correctAnswers,
     required this.totalQuestions,
@@ -76,12 +77,12 @@ class ScoreCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      padding: EdgeInsets.all(16.0),
+      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.0),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black26,
             blurRadius: 8.0,
@@ -94,16 +95,16 @@ class ScoreCard extends StatelessWidget {
         children: [
           Text(
             testName,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          VerticalDivider(
+          const VerticalDivider(
             color: Colors.grey,
             thickness: 1,
             width: 20,
           ),
           Text(
             '$correctAnswers / $totalQuestions',
-            style: TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 18),
           ),
         ],
       ),

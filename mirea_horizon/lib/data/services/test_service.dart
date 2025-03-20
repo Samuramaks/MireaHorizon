@@ -58,4 +58,36 @@ class TestService {
       throw Exception('Error fetching test: $e');
     }
   }
+
+  Future<List<Test>> getTestForDirection(String direct) async {
+    try {
+      final response =
+          await http.get(Uri.parse('$baseUrl/find/name?nameTest=$direct'));
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonData =
+            json.decode(utf8.decode(response.bodyBytes));
+        return jsonData.map((json) => Test.fromJson(json)).toList();
+      } else {
+        throw Exception('Failed to load tests');
+      }
+    } catch (e) {
+      throw Exception('Error fetching test: $e');
+    }
+  }
+
+  Future<List<Test>> getTestForDifficultyLevel(String level) async {
+    try {
+      final response = await http
+          .get(Uri.parse('$baseUrl/find/level?difficultyLevel=$level'));
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonData =
+            json.decode(utf8.decode(response.bodyBytes));
+        return jsonData.map((json) => Test.fromJson(json)).toList();
+      } else {
+        throw Exception('Failed to load tests');
+      }
+    } catch (e) {
+      throw Exception('Error fetching test: $e');
+    }
+  }
 }

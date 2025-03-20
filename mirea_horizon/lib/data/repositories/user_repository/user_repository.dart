@@ -8,6 +8,7 @@ class UserRepository implements UserDao {
 
   UserRepository();
 
+  @override
   Future<void> postUser(UserCustom user) async {
     final url = Uri.parse('$baseUrl/api/user');
     final response = await http.post(

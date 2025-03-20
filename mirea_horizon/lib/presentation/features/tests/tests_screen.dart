@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mirea_horizon/data/models/tests/test_models.dart';
 import 'package:mirea_horizon/data/repositories/user_repository/user_repository.dart';
 import 'package:mirea_horizon/presentation/bloc/test_bloc/test_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/test_bloc/test_event.dart';
@@ -22,6 +21,14 @@ class _TestsScreenState extends State<TestsScreen> {
   int coins = 0;
   User? user = FirebaseAuth.instance.currentUser!;
   final spRepository = GetIt.instance<SPRepository>();
+
+  String? selectedLevel;
+  final Map<String, String> difficultyLevel = {
+    'Легкий': 'Easy',
+    'Средний': 'Normal',
+    'Тяжелый': 'Hard',
+    'Все': 'All',
+  };
   @override
   void initState() {
     super.initState();
@@ -70,6 +77,24 @@ class _TestsScreenState extends State<TestsScreen> {
           const Spacer(),
           const Text('Тестирование'),
           const Spacer(),
+          // DropdownButton<String>(
+          //     value: selectedLevel,
+          //     hint: Text('Сложность'),
+          //     items: difficultyLevel.keys.map((String direction) {
+          //       return DropdownMenuItem<String>(
+          //         value: direction,
+          //         child: Text(direction),
+          //       );
+          //     }).toList(),
+          //     onChanged: (String? newValue) {
+          //       setState(() {
+          //         selectedLevel = newValue;
+
+          //         print('difficultyLevel: ${difficultyLevel[selectedLevel]}');
+          //         context.read<TestBloc>().add(FetchTestForDifficultyLevel(
+          //             difficultyLevel[selectedLevel]!));
+          //       });
+          //     }),
         ],
       )),
       body: RefreshIndicator(

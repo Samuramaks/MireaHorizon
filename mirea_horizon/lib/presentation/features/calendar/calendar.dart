@@ -4,10 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_event.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_state.dart';
+import 'package:mirea_horizon/presentation/features/widgets/utils.dart';
 import 'package:table_calendar/table_calendar.dart';
-// Импортируем intl
-import 'package:intl/date_symbol_data_local.dart'; // Для локализации
-import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import '../../../data/models/calendar/calendar_model.dart';
 import '../widgets/custom_widget.dart';
@@ -142,7 +141,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                       margin: const EdgeInsets.only(top: 20),
                                       padding: const EdgeInsets.all(1),
                                       child: Container(
-                                        // height: 7,
                                         width: 5,
                                         decoration: const BoxDecoration(
                                           shape: BoxShape.circle,
@@ -163,7 +161,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     return GestureDetector(
                                       onTap: () {
                                         _isVerifed
-                                            ? _launchInBrowser(
+                                            ? MyUtils.launchInBrowser(
                                                 Uri.parse(value[index].url))
                                             : Container();
                                       },
@@ -178,8 +176,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                         child: ListTile(
                                             title: Text(value[index]
                                                 .name), // Отображаем название события
-                                            subtitle:
-                                                Text(value[index].description),
+                                            subtitle: Text(
+                                                '${value[index].description}\n${value[index].typeInfo}'),
                                             leading: Image.network(
                                                 value[index].imageUrl)),
                                       ),
@@ -197,15 +195,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
             },
           ),
         ));
-  }
-
-  Future<void> _launchInBrowser(Uri url) async {
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw Exception('Could not launch $url');
-    }
   }
 
   String _getContactionsDay(int day) {

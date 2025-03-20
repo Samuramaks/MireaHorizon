@@ -5,7 +5,6 @@ import '../../../data/models/news/news_item.dart';
 import '../../bloc/news_bloc/news_bloc.dart';
 import '../../bloc/news_bloc/news_event.dart';
 import '../../bloc/news_bloc/news_state.dart';
-import '../../../data/services/news_service.dart';
 import '../widgets/custom_widget.dart';
 
 class NewsListWidget extends StatelessWidget {

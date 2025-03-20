@@ -4,6 +4,7 @@ class Event {
   final String description;
   final String url;
   final String imageUrl;
+  final String typeInfo;
 
   Event({
     required this.name,
@@ -11,16 +12,19 @@ class Event {
     required this.description,
     required this.url,
     required this.imageUrl,
+    required this.typeInfo,
   });
 
   // Метод для создания объекта из JSON
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
-        name: json['name'],
-        date: DateTime.parse(json['date']), // Преобразуем строку в DateTime
-        description: json['description'],
-        url: json['url'], // Если URL есть, парсим его
-        imageUrl: json['image']);
+      name: json['name'],
+      date: DateTime.parse(json['date']), // Преобразуем строку в DateTime
+      description: json['description'],
+      url: json['url'], // Если URL есть, парсим его
+      imageUrl: json['image'],
+      typeInfo: json['typeInfo'],
+    );
   }
 
   // Метод для преобразования объекта в JSON
@@ -31,6 +35,7 @@ class Event {
       'description': description,
       'url': url, // Преобразуем Uri в строку, если URL есть
       'imageUrl': imageUrl,
+      'typeInfo': typeInfo,
     };
   }
 }
