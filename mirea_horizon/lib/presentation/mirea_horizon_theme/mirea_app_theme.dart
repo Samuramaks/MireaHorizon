@@ -72,4 +72,10 @@ abstract class AppColors {
   static const purpleAccent = Colors.purpleAccent;
 
   static const backgroundSplashScreen = Color.fromRGBO(58, 49, 111, 1);
+
+  // Добавляем сиреневые цвета из нашей темы
+  static const sirenDark = Color(0xFF6A1B9A); // Насыщенный фиолетовый
+  static const sirenLight = Color(0xFFAB47BC); // Лиловый
+  static const sirenMedium = Color(0xFF8E24AA); // Средний сиреневый
+  static const sirenPale = Color(0xFFD1C4E9); // Светло-сиреневый
 }

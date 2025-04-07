@@ -31,15 +31,23 @@ class ProgressScreen extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               } else if (state is ProgressError) {
-                return Center(
-                  child: Text('Error: ${state.message}'),
-                );
+                return ListView(children: [
+                  Center(
+                    child: Text('Error: ${state.message}'),
+                  ),
+                ]);
               } else if (state is ProgressLoaded) {
                 final testResults = state.result;
                 if (testResults.isEmpty) {
-                  return const Center(
-                    child: Text('Нет результатов тестов.'),
-                  );
+                  return ListView(children: const [
+                    Center(
+                      child: Column(
+                        children: [
+                          Text('Нет результатов тестов.'),
+                        ],
+                      ),
+                    ),
+                  ]);
                 }
                 return ListView.builder(
                   itemCount: testResults.length,

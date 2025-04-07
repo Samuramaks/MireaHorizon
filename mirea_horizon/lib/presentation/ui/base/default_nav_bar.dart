@@ -27,9 +27,9 @@ class DefaultNavBar extends StatelessWidget {
         },
         type: BottomNavigationBarType.fixed,
         currentIndex: navigationBloc.state.currentIndex,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Theme.of(context).colorScheme.onPrimaryFixed,
         unselectedItemColor: Theme.of(context).colorScheme.onSurface,
-        selectedItemColor: Theme.of(context).colorScheme.surface,
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
         showUnselectedLabels: true,
         selectedFontSize: 12,
         items: const [

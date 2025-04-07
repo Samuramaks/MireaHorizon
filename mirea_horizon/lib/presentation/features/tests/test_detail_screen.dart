@@ -63,7 +63,8 @@ class _TestDetailScreenState extends State<TestDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.test.nameTest),
+        title: Text(widget.test.nameTest,
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
       ),
       body: Column(
         children: [
@@ -112,7 +113,7 @@ class QuestionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).colorScheme.secondary,
+      // color: Theme.of(context).colorScheme.secondary,
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: Padding(
         padding: const EdgeInsets.all(16.0),

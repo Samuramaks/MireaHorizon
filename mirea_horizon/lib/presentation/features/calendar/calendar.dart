@@ -114,7 +114,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       TableCalendar(
                         calendarStyle: CalendarStyle(
                             selectedDecoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surface,
+                                color: Theme.of(context).colorScheme.secondary,
                                 shape: BoxShape.circle)),
                         calendarFormat: CalendarFormat.week,
                         headerStyle: const HeaderStyle(

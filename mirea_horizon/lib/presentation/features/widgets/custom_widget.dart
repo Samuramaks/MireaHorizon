@@ -21,7 +21,7 @@ class CustomWidget extends StatelessWidget {
           nameAppBar,
           style: TextStyle(color: colorScheme.onSurface),
         ),
-        backgroundColor: colorScheme.secondary,
+        // backgroundColor: colorScheme.secondary,
         centerTitle: true,
         bottom: bottom,
         actions: actions,

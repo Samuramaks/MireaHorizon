@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'mirea_app_theme.dart';
+import 'mirea_app_theme.dart'; // Подключаем AppColors
 
 class MireaColorScheme extends ColorScheme {
   @override
@@ -29,46 +29,49 @@ class MireaColorScheme extends ColorScheme {
   @override
   Color get onSurface;
 
-  MireaColorScheme(
-      {required Brightness? brightness,
-      Color? primary,
-      Color? onPrimary,
-      Color? secondary,
-      Color? onSecondary,
-      Color? error,
-      Color? onError,
-      Color? surface,
-      Color? onSurface})
-      : super(
-            brightness: brightness!,
-            primary: primary!,
-            onPrimary: onPrimary!,
-            secondary: secondary!,
-            onSecondary: onSecondary!,
-            error: error!,
-            onError: onError!,
-            surface: surface!,
-            onSurface: onSurface!);
+  MireaColorScheme({
+    required Brightness brightness,
+    required Color primary,
+    required Color onPrimary,
+    required Color secondary,
+    required Color onSecondary,
+    required Color error,
+    required Color onError,
+    required Color surface,
+    required Color onSurface,
+  }) : super(
+          brightness: brightness,
+          primary: primary,
+          onPrimary: onPrimary,
+          secondary: secondary,
+          onSecondary: onSecondary,
+          error: error,
+          onError: onError,
+          surface: surface,
+          onSurface: onSurface,
+        );
 
   static get light => MireaColorScheme(
-      brightness: Brightness.light,
-      primary: AppColors.defaultBlueDarkColor,
-      onPrimary: AppColors.defaultWhiteColor,
-      secondary: AppColors.defaultLightColor,
-      onSecondary: AppColors.defaultWhiteColor,
-      error: AppColors.defaultErrorLightColor,
-      onError: AppColors.defaultMainLightColor,
-      surface: AppColors.selectedItemBar,
-      onSurface: AppColors.backgroundSplashScreen);
+        brightness: Brightness.light,
+        primary: AppColors.sirenDark, // #6A1B9A
+        onPrimary: AppColors.defaultMainLightColor, // #FFFFFF
+        secondary: AppColors.sirenLight, // #AB47BC
+        onSecondary: AppColors.defaultMainLightColor, // #FFFFFF
+        error: AppColors.defaultErrorLightColor, // #D64141
+        onError: AppColors.defaultMainLightColor, // #FFFFFF
+        surface: AppColors.backgroundAppLightColor, // #F4F3FF
+        onSurface: AppColors.sirenDark, // #6A1B9A
+      );
 
   static get dark => MireaColorScheme(
-      brightness: Brightness.dark,
-      primary: AppColors.defaultDarkColor,
-      onPrimary: AppColors.defaultBlackColor,
-      secondary: AppColors.defaultDarkColor,
-      onSecondary: AppColors.defaultBlackColor,
-      error: AppColors.defaultErrorDarkColor,
-      onError: AppColors.defaultMainDarkColor,
-      surface: AppColors.backgroundAppDarkColor,
-      onSurface: AppColors.defaultWhiteColor);
+        brightness: Brightness.dark,
+        primary: AppColors.sirenMedium, // #8E24AA
+        onPrimary: AppColors.defaultMainLightColor, // #FFFFFF
+        secondary: AppColors.sirenLight, // #AB47BC
+        onSecondary: AppColors.defaultMainLightColor, // #FFFFFF
+        error: AppColors.defaultErrorDarkColor, // #D64141
+        onError: AppColors.defaultMainLightColor, // #FFFFFF
+        surface: AppColors.backgroundAppDarkColor, // #0B0B0B
+        onSurface: AppColors.defaultMainLightColor, // #FFFFFF
+      );
 }

@@ -75,7 +75,10 @@ class _TestsScreenState extends State<TestsScreen> {
             height: 23,
           ),
           const Spacer(),
-          const Text('Тестирование'),
+          Text(
+            'Тестирование',
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+          ),
           const Spacer(),
           // DropdownButton<String>(
           //     value: selectedLevel,

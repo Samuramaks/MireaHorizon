@@ -56,10 +56,16 @@ class _ProfileScreen extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var colorScheme = Theme.of(context).colorScheme;
     return CustomWidget(
       nameAppBar: 'Профиль',
       actions: [
-        user!.emailVerified ? const Icon(Icons.verified) : Container(),
+        user!.emailVerified
+            ? Icon(
+                Icons.verified,
+                color: colorScheme.onSurface,
+              )
+            : Container(),
       ],
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -74,7 +80,9 @@ class _ProfileScreen extends State<ProfileScreen> {
             const SizedBox(height: 4),
             Text(
               email,
-              style: const TextStyle(fontSize: 18, color: Colors.grey),
+              style: const TextStyle(
+                fontSize: 18,
+              ),
             ),
             const SizedBox(height: 8),
             if (!user!.emailVerified)

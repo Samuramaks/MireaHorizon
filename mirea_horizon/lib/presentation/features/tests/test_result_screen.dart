@@ -26,7 +26,8 @@ class TestResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Результаты'),
+        title: Text('Результаты',
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
@@ -42,7 +43,7 @@ class TestResultScreen extends StatelessWidget {
                       onPressed: () async {
                         context.go(TestsRoutes.base());
                       },
-                      child: Text('Вернуться к тесту',
+                      child: Text('Вернуться к тестам',
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface)),
                     ),
