@@ -80,6 +80,15 @@ class _TestsScreenState extends State<TestsScreen> {
             style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
           ),
           const Spacer(),
+          IconButton(
+            onPressed: () => context.go('/app/tests/info'),
+            icon: const Icon(Icons.info_outline),
+            color: Theme.of(context).colorScheme.onSurface,
+          )
+          // Icon(
+          //   Icons.info_outline,
+          //   color: Theme.of(context).colorScheme.onSurface,
+          // ),
           // DropdownButton<String>(
           //     value: selectedLevel,
           //     hint: Text('Сложность'),

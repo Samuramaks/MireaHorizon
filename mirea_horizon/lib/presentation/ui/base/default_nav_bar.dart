@@ -42,6 +42,9 @@ class DefaultNavBar extends StatelessWidget {
             label: 'Тестирование',
           ),
           BottomNavigationBarItem(
+              icon: Icon(Icons.add_circle_outline_rounded),
+              label: 'Коллаборация'),
+          BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month_rounded),
             label: 'Календарь',
           ),

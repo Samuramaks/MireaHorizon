@@ -49,6 +49,7 @@ ThemeData createLightTheme() {
         elevation: 0,
         shadowColor: AppColors.defaultLightColor,
         backgroundColor: AppColors.defaultLightColor,
+        iconTheme: IconThemeData(color: AppColors.sirenLight),
         foregroundColor: AppColors.defaultWhiteColor,
         centerTitle: true),
 

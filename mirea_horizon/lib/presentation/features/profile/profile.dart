@@ -67,75 +67,94 @@ class _ProfileScreen extends State<ProfileScreen> {
               )
             : Container(),
       ],
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Информация о пользователе
-            Text(
-              name,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              email,
-              style: const TextStyle(
-                fontSize: 18,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  const CircleAvatar(
+                    radius: 30,
+                    child: Icon(Icons.person),
+                  ),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name,
+                        style: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        email,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
-            ),
-            const SizedBox(height: 8),
-            if (!user!.emailVerified)
-              ElevatedButton(
-                onPressed: () {
-                  authRepository.emailVerification();
-                  _showDialog(context);
+              // Информация о пользователе
+
+              const SizedBox(height: 8),
+              if (!user!.emailVerified)
+                ElevatedButton(
+                  onPressed: () {
+                    authRepository.emailVerification();
+                    _showDialog(context);
+                  },
+                  child: const Text('Подтвердить почту'),
+                ),
+              const SizedBox(height: 20),
+              // Кнопки направлений
+              MyUtils.buildDirectionInfo(context),
+
+              const SizedBox(height: 20),
+
+              // Выпадающий список для выбора направления
+              const Text(
+                'Выберите направление:',
+                style: TextStyle(fontSize: 16),
+              ),
+              DropdownButton<String>(
+                value: selectedDirection,
+                hint: const Text('Выберите направление'),
+                items: testDirections.keys.map((String direction) {
+                  return DropdownMenuItem<String>(
+                    value: direction,
+                    child: Text(direction),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedDirection = newValue;
+
+                    print(
+                        'SelectedDirect: ${testDirections[selectedDirection]}');
+                    context.read<TestBloc>().add(FetchTestForDirection(
+                        testDirections[selectedDirection]!));
+                  });
                 },
-                child: const Text('Подтвердить почту'),
               ),
-            const SizedBox(height: 20),
-            // Кнопки направлений
-            MyUtils.buildDirectionInfo(context),
+              const SizedBox(height: 16),
 
-            const SizedBox(height: 20),
-
-            // Выпадающий список для выбора направления
-            const Text(
-              'Выберите направление:',
-              style: TextStyle(fontSize: 16),
-            ),
-            DropdownButton<String>(
-              value: selectedDirection,
-              hint: const Text('Выберите направление'),
-              items: testDirections.keys.map((String direction) {
-                return DropdownMenuItem<String>(
-                  value: direction,
-                  child: Text(direction),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedDirection = newValue;
-
-                  print('SelectedDirect: ${testDirections[selectedDirection]}');
-                  context.read<TestBloc>().add(FetchTestForDirection(
-                      testDirections[selectedDirection]!));
-                });
-              },
-            ),
-            const SizedBox(height: 20),
-
-            TextButton(
-              onPressed: () {
-                context.read<AuthBloc>().add(SignOutRequested());
-                context.read<NavigationBloc>().add(ResetNavigationEvent());
-              },
-              child: const Text(
-                'Выйти из профиля',
-                style: TextStyle(fontSize: 16, color: Colors.redAccent),
+              TextButton(
+                onPressed: () {
+                  context.read<AuthBloc>().add(SignOutRequested());
+                  context.read<NavigationBloc>().add(ResetNavigationEvent());
+                },
+                child: const Text(
+                  'Выйти из профиля',
+                  style: TextStyle(fontSize: 16, color: Colors.redAccent),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

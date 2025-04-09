@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mirea_horizon/presentation/features/intro/intro_screen.dart';
+import 'package:mirea_horizon/presentation/router/branches/collabarators/collaborators_router.dart';
 import 'package:mirea_horizon/presentation/router/export_main_widgets.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
 import '../bloc/auth_bloc/auth_state.dart';
@@ -84,6 +85,7 @@ GoRouter createAppRoute(AuthBloc authBloc) {
           branches: <StatefulShellBranch>[
             MainRouter(),
             TestsRouter(),
+            CollaboratorRouter(),
             CalendarRouter(),
             ProgressRouter(),
             ProfileRouter(),

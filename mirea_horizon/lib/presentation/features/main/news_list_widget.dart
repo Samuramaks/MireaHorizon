@@ -47,7 +47,6 @@ class NewsListWidget extends StatelessWidget {
       nameAppBar: 'Новости',
       body: RefreshIndicator(
         onRefresh: () => _refreshData(context),
-        backgroundColor: Colors.white,
         child: BlocBuilder<NewsBloc, NewsState>(
           builder: (context, state) {
             if (state is NewsLoading) {

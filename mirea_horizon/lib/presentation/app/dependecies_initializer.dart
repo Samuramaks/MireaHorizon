@@ -2,6 +2,8 @@ import 'package:get_it/get_it.dart';
 import 'package:mirea_horizon/data/repositories/local_data/sp_repository.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_event.dart';
+import 'package:mirea_horizon/presentation/bloc/collab_bloc/collab_bloc.dart';
+import 'package:mirea_horizon/presentation/bloc/collab_bloc/collab_event.dart';
 import 'package:mirea_horizon/presentation/bloc/news_bloc/news_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/news_bloc/news_event.dart';
 import 'package:mirea_horizon/presentation/bloc/progress_bloc/progress_bloc.dart';
@@ -54,5 +56,8 @@ class DependeciesInitializer {
 
     //Progress
     getIt.registerSingleton<ProgressBloc>(ProgressBloc()..add(FetchProgress()));
+
+    //Collab
+    getIt.registerSingleton<CollabBloc>(CollabBloc()..add(FetchCollab()));
   }
 }

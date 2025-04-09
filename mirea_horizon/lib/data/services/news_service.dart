@@ -11,17 +11,20 @@ class NewsService {
       final newsItems = document.querySelectorAll('.uk-card.uk-card-default');
 
       List<NewsItem> newsList = newsItems.map((element) {
-        final titleElement = element.querySelector('.uk-link-reset');
-        final linkElement = titleElement?.attributes['href'];
+        final titleElement = element.querySelector('.achiv-title');
         final title = titleElement?.text.trim();
 
+        // Извлекаем ссылку на новость
+        final linkElement =
+            element.querySelector('a'); // Находим первый <a> внутри элемента
+        final link = linkElement?.attributes['href'];
+
         // Извлекаем дату
-        final dateElement =
-            element.querySelector('.uk-margin-small-bottom.uk-text-small');
+        final dateElement = element.querySelector('.date-wrapper');
         final date = dateElement?.text.trim() ?? '';
 
         // Извлекаем URL изображения
-        final imageElement = element.querySelector('.uk-card-media-top img');
+        final imageElement = element.querySelector('.smi_abs__img');
         final imageUrl = imageElement?.attributes['data-src'] ?? '';
 
         // print('https://www.mirea.ru$imageUrl');
@@ -30,7 +33,7 @@ class NewsService {
           title: title ?? '',
           date: date,
           imageUrl: 'https://www.mirea.ru$imageUrl',
-          link: linkElement != null ? 'https://mirea.ru$linkElement' : '',
+          link: linkElement != null ? 'https://mirea.ru$link' : '',
           description: '', // Добавьте, если нужно
         );
       }).toList();

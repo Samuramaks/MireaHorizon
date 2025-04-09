@@ -50,56 +50,60 @@ class TestResultScreen extends StatelessWidget {
                   ],
                 )
               : testResultArguments.level == 'NoLevel'
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 200,
-                          child: PieChart(
-                            PieChartData(
-                              sections: [
-                                PieChartSectionData(
-                                  value: testResultArguments.programmingScore
-                                      .toDouble(),
-                                  color: Colors.greenAccent,
-                                  title: 'Прогер',
-                                  radius: 60,
-                                ),
-                                PieChartSectionData(
-                                  value: testResultArguments.designScore
-                                      .toDouble(),
-                                  color: Colors.purpleAccent,
-                                  title: 'Дизайн',
-                                  radius: 60,
-                                ),
-                                PieChartSectionData(
-                                  value: testResultArguments.analytScore
-                                      .toDouble(),
-                                  color: Colors.yellowAccent,
-                                  title: 'Аналитик',
-                                  radius: 60,
-                                ),
-                              ],
-                              borderData: FlBorderData(show: false),
-                              sectionsSpace: 0,
-                              centerSpaceRadius: 40,
+                  ? SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 200,
+                            child: PieChart(
+                              PieChartData(
+                                sections: [
+                                  PieChartSectionData(
+                                    value: testResultArguments.programmingScore
+                                        .toDouble(),
+                                    color: Colors.greenAccent,
+                                    title: 'Прогер',
+                                    radius: 60,
+                                  ),
+                                  PieChartSectionData(
+                                    value: testResultArguments.designScore
+                                        .toDouble(),
+                                    color: Colors.purpleAccent,
+                                    title: 'Дизайн',
+                                    radius: 60,
+                                  ),
+                                  PieChartSectionData(
+                                    value: testResultArguments.analytScore
+                                        .toDouble(),
+                                    color: Colors.yellowAccent,
+                                    title: 'Аналитик',
+                                    radius: 60,
+                                  ),
+                                ],
+                                borderData: FlBorderData(show: false),
+                                sectionsSpace: 0,
+                                centerSpaceRadius: 40,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        MyUtils.buildDirectionInfo(context),
-                        ElevatedButton(
-                          onPressed: () async {
-                            await spRepository.setNewUserFlag(false);
-                            context.read<TestBloc>().add(FetchTests());
-                            context.go(TestsRoutes.base());
-                          },
-                          child: Text('Вернуться к тестам',
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface)),
-                        ),
-                      ],
+                          const SizedBox(height: 20),
+                          MyUtils.buildDirectionInfo(context),
+                          const SizedBox(height: 20),
+                          ElevatedButton(
+                            onPressed: () async {
+                              await spRepository.setNewUserFlag(false);
+                              context.read<TestBloc>().add(FetchTests());
+                              context.go(TestsRoutes.base());
+                            },
+                            child: Text('Вернуться к тестам',
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface)),
+                          ),
+                        ],
+                      ),
                     )
                   : Column(
                       mainAxisAlignment: MainAxisAlignment.center,

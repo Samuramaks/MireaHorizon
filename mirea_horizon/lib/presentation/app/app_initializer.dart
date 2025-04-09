@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_bloc.dart';
+import 'package:mirea_horizon/presentation/bloc/collab_bloc/collab_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/news_bloc/news_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/progress_bloc/progress_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/test_bloc/test_bloc.dart';
@@ -33,6 +34,7 @@ class AppInitializer extends StatelessWidget {
       BlocProvider(create: (context) => GetIt.instance<NewsBloc>()),
       BlocProvider(create: (context) => GetIt.instance<CalendarBloc>()),
       BlocProvider(create: (context) => GetIt.instance<ProgressBloc>()),
+      BlocProvider(create: (context) => GetIt.instance<CollabBloc>()),
     ], child: child);
   }
 }

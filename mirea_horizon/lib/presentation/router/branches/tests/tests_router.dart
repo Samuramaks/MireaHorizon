@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mirea_horizon/data/models/tests/test_models.dart';
 import 'package:mirea_horizon/presentation/features/tests/test_detail_screen.dart';
+import 'package:mirea_horizon/presentation/features/tests/test_info_screen.dart';
 import 'package:mirea_horizon/presentation/features/tests/test_result_screen.dart';
 import 'package:mirea_horizon/presentation/features/tests/tests_screen.dart';
 
@@ -37,6 +38,10 @@ class TestsRouter extends StatefulShellBranch {
                         );
                       },
                     ),
+                    GoRoute(
+                      path: TestsRoutes.info(),
+                      builder: (context, state) => TestInfoScreen(),
+                    )
                   ])
             ]);
 }
