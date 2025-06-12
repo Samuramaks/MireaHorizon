@@ -8,26 +8,31 @@ class NewsService {
 
     if (response.statusCode == 200) {
       final document = html.parse(response.body);
-      final newsItems = document.querySelectorAll('.uk-card.uk-card-default');
+      final newsItems =
+          document.querySelectorAll('.news-block-slider-grid__item');
 
       List<NewsItem> newsList = newsItems.map((element) {
-        final titleElement = element.querySelector('.achiv-title');
+        final titleElement = element.querySelector('.events-block-body');
         final title = titleElement?.text.trim();
 
         // Извлекаем ссылку на новость
-        final linkElement =
-            element.querySelector('a'); // Находим первый <a> внутри элемента
-        final link = linkElement?.attributes['href'];
+        final linkElement = element.attributes['href'] ?? '';
+        final link = linkElement.isNotEmpty ? linkElement : '';
 
         // Извлекаем дату
-        final dateElement = element.querySelector('.date-wrapper');
-        final date = dateElement?.text.trim() ?? '';
+        final newsBlockContent = element.querySelector('.news-block-content');
+        final date = newsBlockContent?.nodes
+                .lastWhere((node) => node.text?.trim().isNotEmpty ?? false)
+                .text
+                ?.trim() ??
+            '';
 
         // Извлекаем URL изображения
-        final imageElement = element.querySelector('.smi_abs__img');
-        final imageUrl = imageElement?.attributes['data-src'] ?? '';
+        final imageElement = element.querySelector('.uk-card-media-top img');
+        final imageUrl = imageElement?.attributes['src'] ??
+            imageElement?.attributes['data-src'];
 
-        // print('https://www.mirea.ru$imageUrl');
+        print(imageUrl);
 
         return NewsItem(
           title: title ?? '',
@@ -37,6 +42,8 @@ class NewsService {
           description: '', // Добавьте, если нужно
         );
       }).toList();
+
+      print('News: ${newsList}');
 
       return newsList;
     } else {

@@ -65,18 +65,21 @@ class NewsListWidget extends StatelessWidget {
                       },
                     ),
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: state.news.length,
-                      itemBuilder: (context, index) {
-                        final newsItem =
-                            state.news[index]; // Теперь это объект NewsItem
-                        return NewsCard(
-                            newsItem:
-                                newsItem); // Используем новый виджет NewsCard
-                      },
-                    ),
-                  ),
+                  state.news.isEmpty
+                      ? const Center(
+                          child: Text('Нет новостей'),
+                        )
+                      : Expanded(
+                          child: ListView.builder(
+                              itemCount: state.news.length,
+                              itemBuilder: (context, index) {
+                                final newsItem = state
+                                    .news[index]; // Теперь это объект NewsItem
+                                return NewsCard(
+                                    newsItem:
+                                        newsItem); // Используем новый виджет NewsCard
+                              }),
+                        ),
                 ],
               );
             } else if (state is NewsError) {
@@ -153,8 +156,9 @@ class NewsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(newsItem.imageUrl);
     return Card(
-      // color: Theme.of(context).colorScheme.secondary,
+      // color: Colors.red,
       margin: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

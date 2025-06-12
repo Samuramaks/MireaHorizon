@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mirea_horizon/presentation/features/progress/progress.dart';
+import 'package:mirea_horizon/presentation/features/progress/progress_gift_screen.dart';
 import 'progress_routes_constants.dart';
-import '../../../features/details/details_page.dart';
 
 class ProgressRouter extends StatefulShellBranch {
   ProgressRouter()
@@ -17,8 +17,7 @@ class ProgressRouter extends StatefulShellBranch {
                   routes: [
                     GoRoute(
                       path: ProgressRoutes.details(),
-                      builder: (context, state) =>
-                          const DetailsScreen(nameTitle: 'progress'),
+                      builder: (context, state) => ProgressGiftScreen(),
                     )
                   ])
             ]);

@@ -115,6 +115,13 @@ class TestResultScreen extends StatelessWidget {
                         const SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () async {
+                            await spRepository.saveTestResult(
+                              testResultArguments.nameTest,
+                              testResultArguments
+                                  .score, // Предполагаем, что score = coins
+                              testResultArguments.score,
+                              testResultArguments.totalQuestions,
+                            );
                             await resultRepository.submitTestResult(Result(
                               email: user!.email!,
                               coins: testResultArguments.score,

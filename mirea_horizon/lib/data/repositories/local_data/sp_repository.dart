@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class SPRepository {
   final SharedPreferences preferences;
@@ -72,5 +73,44 @@ class SPRepository {
     bool? isNewUser = await getBoolLocalData('isNewUser');
     return isNewUser ??
         true; // Если флаг не установлен, считаем, что это новый пользователь
+  }
+
+  // Метод для сохранения результата теста
+  Future<void> saveTestResult(String testName, int coins, int correctAnswers,
+      int totalQuestions) async {
+    List<String> results = preferences.getStringList('test_results') ?? [];
+
+    // Создаем новый результат
+    final newResult = {
+      'test_name': testName,
+      'coins': coins,
+      'correct_answers': correctAnswers,
+      'total_questions': totalQuestions,
+    };
+    results.add(jsonEncode(newResult));
+
+    // Обновляем общее количество монет
+    final currentCoins = preferences.getInt('total_coins') ?? 0;
+    await preferences.setInt('total_coins', currentCoins + coins);
+
+    // Сохраняем результаты
+    await preferences.setStringList('test_results', results);
+  }
+
+  // Метод для получения всех результатов тестов
+  Future<List<Map<String, dynamic>>> getTestResults() async {
+    final results = preferences.getStringList('test_results') ?? [];
+    return results.map((e) => jsonDecode(e) as Map<String, dynamic>).toList();
+  }
+
+  // Метод для получения общего количества монет
+  Future<int> getTotalCoins() async {
+    return preferences.getInt('total_coins') ?? 0;
+  }
+
+  // Метод для очистки результатов тестов
+  Future<void> clearTestResults() async {
+    await preferences.remove('test_results');
+    await preferences.remove('total_coins');
   }
 }

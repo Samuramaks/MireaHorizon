@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mirea_horizon/data/repositories/auth_repository.dart';
 import 'package:mirea_horizon/presentation/bloc/auth_bloc/auth_event.dart';
 import 'package:mirea_horizon/presentation/bloc/base/navigation_bloc.dart';
@@ -142,7 +143,9 @@ class _ProfileScreen extends State<ProfileScreen> {
                 },
               ),
               const SizedBox(height: 16),
-
+              TextButton(
+                  onPressed: () => {context.go('/app/profile/info')},
+                  child: const Text('О приложении')),
               TextButton(
                 onPressed: () {
                   context.read<AuthBloc>().add(SignOutRequested());
