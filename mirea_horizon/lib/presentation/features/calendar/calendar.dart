@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mirea_horizon/data/services/user/user_direction_service.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_bloc.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_event.dart';
 import 'package:mirea_horizon/presentation/bloc/calendar_bloc/calendar_state.dart';
@@ -28,6 +30,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Map<DateTime, List<Event>> eventsMap = {};
   late final ValueNotifier<List<Event>> _selectedEvents;
   late final bool _isVerifed;
+  final UserDirectionService _directionService =
+      GetIt.instance<UserDirectionService>();
 
   @override
   void initState() {
@@ -37,6 +41,21 @@ class _CalendarScreenState extends State<CalendarScreen> {
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay));
     _isVerifed = FirebaseAuth.instance.currentUser!.emailVerified;
+
+    _directionService.addListener(_onDirectionChanged);
+  }
+
+  void _onDirectionChanged() {
+    // 🔥 При изменении направления — перезагружаем календарь
+    if (mounted) {
+      BlocProvider.of<CalendarBloc>(context).add(RefreshCalendar());
+    }
+  }
+
+  @override
+  void dispose() {
+    _directionService.removeListener(_onDirectionChanged);
+    super.dispose();
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -113,8 +132,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     children: [
                       TableCalendar(
                         calendarStyle: CalendarStyle(
-                            selectedDecoration: BoxDecoration(
+                            todayDecoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.secondary,
+                                shape: BoxShape.circle),
+                            selectedDecoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.onSurface,
                                 shape: BoxShape.circle)),
                         calendarFormat: CalendarFormat.week,
                         headerStyle: const HeaderStyle(

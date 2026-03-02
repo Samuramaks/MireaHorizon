@@ -2,12 +2,14 @@ class Test {
   final int id;
   final String nameTest;
   final String difficultyLevel;
+  final int? directionId;
   final List<Question> questions;
 
   Test({
     required this.id,
     required this.nameTest,
     required this.difficultyLevel,
+    this.directionId,
     required this.questions,
   });
 
@@ -16,9 +18,9 @@ class Test {
       id: json['id'],
       nameTest: json['nameTest'],
       difficultyLevel: json['difficultyLevel'],
-      questions: (json['questions'] as List)
-          .map((q) => Question.fromJson(q))
-          .toList(),
+      directionId: json['directionId'] ?? json['direction']?['id'],
+      questions:
+          (json['questions'] as List).map((q) => Question.fromJson(q)).toList(),
     );
   }
 }

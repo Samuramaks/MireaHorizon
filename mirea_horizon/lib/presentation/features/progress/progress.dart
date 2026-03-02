@@ -129,6 +129,7 @@ import 'package:mirea_horizon/presentation/bloc/progress_bloc/progress_bloc.dart
 import 'package:mirea_horizon/presentation/bloc/progress_bloc/progress_event.dart';
 import 'package:mirea_horizon/presentation/bloc/progress_bloc/progress_state.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mirea_horizon/presentation/features/widgets/tramslation.dart';
 import '../widgets/custom_widget.dart';
 import 'package:mirea_horizon/data/repositories/local_data/sp_repository.dart';
 import 'package:get_it/get_it.dart';
@@ -156,7 +157,7 @@ class ProgressScreen extends StatelessWidget {
         child: FutureBuilder<int>(
           future: spRepository.getTotalCoins(),
           builder: (context, snapshot) {
-            final totalCoins = snapshot.data ?? 0;
+            // final totalCoins = snapshot.data ?? 0;
             return Column(
               children: [
                 // Padding(
@@ -219,7 +220,8 @@ class ProgressScreen extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 final testResult = allResults[index];
                                 return ScoreCard(
-                                  testName: testResult.testName,
+                                  testName: TestTranslations.getDirectionRu(
+                                      testResult.testName),
                                   correctAnswers: testResult.correctAnswers,
                                   totalQuestions: testResult.totalQuestions,
                                   coins: testResult.coins,

@@ -1,81 +1,110 @@
+// import 'package:flutter/material.dart';
+
+// abstract class AppColors {
+//   // Основные цвета бренда
+//   static const Color primaryLight = Color(0xFF2B3D91); // Темно-синий
+//   static const Color primaryDark =
+//       Color(0xFF1A2B6A); // Темнее синий для dark mode
+//   static const Color accentOrange = Color(0xFFFF5722); // Оранжевый акцент
+//   static const Color errorRed = Color(0xFFD32F2F); // Красный для ошибок
+
+//   // Фоновые цвета
+//   static const Color backgroundLight = Colors.white;
+//   static const Color backgroundDark = Color(0xFF121212);
+
+//   // Цвета текста
+//   static const Color textLight = Color(0xFF333333); // Основной текст
+//   static const Color textOnPrimary = Colors.white; // Текст на синем фоне
+//   static const Color appBarIconColor = Color(0xFF555555); // Иконки в AppBar
+
+//   // Дополнительные цвета
+//   static const Color widgetBackgroundLight = Colors.white;
+//   static const Color widgetBackgroundDark = Color(0xFF1E1E1E);
+//   static const Color boxShadowLight = Color(0x1A000000);
+//   static const Color boxShadowDark = Colors.transparent;
+
+//   // Серые цвета
+//   static const Color greyDefaultLightColor = Color(0xFF9E9E9E);
+//   static const Color greyDefaultDarkColor = Color(0xFFB0B0B0);
+//   static const Color greyAccentDefaultLightColor = Color(0xFFE0E0E0);
+//   static const Color greyAccentDefaultDarkColor = Color(0xFF424242);
+
+//   // Совместимость со старым кодом
+//   static Color defaultLightColor = primaryLight;
+//   static Color defaultDarkColor = primaryDark;
+//   static Color backgroundAppLightColor = backgroundLight;
+//   static Color backgroundAppDarkColor = backgroundDark;
+//   static Color backgroundWidgetLightColor = widgetBackgroundLight;
+//   static Color backgroundWidgetDarkColor = widgetBackgroundDark;
+//   static Color boxShadowLightColor = boxShadowLight;
+//   static Color boxShadowDarkColor = boxShadowDark;
+//   static Color sirenLight = primaryLight; // Заменяем сиреневый на синий
+//   static Color sirenDark = primaryLight;
+//   static const Color sirenPale = Color(0xFFE3F2FD); // Светло-голубой акцент
+// }
+
+// lib/presentation/theme/app_colors.dart
+
 import 'package:flutter/material.dart';
 
 abstract class AppColors {
-  static Color defaultWhiteColor = const Color.fromRGBO(37, 82, 68, 0.98);
-  static Color defaultBlackColor = const Color.fromRGBO(29, 33, 35, 0.98);
-  static Color defaultBlackGreenColor = const Color.fromRGBO(1, 221, 153, 0.98);
+  // ==================== ОСНОВНЫЕ ЦВЕТА ====================
 
-  static Color defaultLightColor = const Color.fromARGB(255, 255, 255, 255);
-  static Color defaultDarkColor = const Color.fromARGB(11, 11, 11, 1);
+  // Светло-синяя палитра (основа дизайна)
+  static const Color primaryLight =
+      Color(0xFF64B5F6); // Яркий светло-синий (кнопки, акценты)
+  static const Color primaryLightDark =
+      Color(0xFF42A5F5); // Чуть темнее для hover/pressed
+  static const Color primaryLightPale =
+      Color(0xFFBBDEFB); // Очень светлый (фон виджетов)
+  static const Color primaryLightDeep =
+      Color(0xFF1976D2); // Насыщенный для важного текста
 
-  static Color backgroundAppLightColor = const Color.fromRGBO(244, 243, 255, 1);
-  static Color backgroundAppDarkColor = const Color.fromRGBO(11, 11, 11, 1);
+  // ==================== ФОНОВЫЕ ЦВЕТА ====================
 
-  static Color selectedItemBar = const Color.fromRGBO(139, 32, 114, 1);
+  static const Color backgroundLight = Colors.white; // Основной фон приложения
+  static const Color backgroundWidgetLight =
+      Color(0xFFF5F9FF); // Фон карточек/виджетов (лёгкий голубой)
+  static const Color backgroundWidgetAlt =
+      Color(0xFFE3F2FD); // Альтернативный фон (для выделения)
+  static const Color backgroundDark = Color(0xFF121212);
 
-  static Color backgroundWidgetLightColor =
-      const Color.fromRGBO(255, 255, 255, 1);
+  // ==================== ТЕКСТ ====================
 
-  static Color backgroundWidgetDarkColor = const Color.fromRGBO(37, 41, 44, 1);
+  static const Color textPrimary = Color(
+      0xFF1565C0); // Тёмно-синий для основного текста (читаемость на белом)
+  static const Color textSecondary =
+      Color(0xFF42A5F5); // Светло-синий для второстепенного текста
+  static const Color textOnPrimary =
+      Colors.white; // Белый текст на синих кнопках
+  static const Color textHint = Color(0xFF90CAF9); // Подсказки, placeholder
 
-  static Color boxShadowLightColor = const Color.fromRGBO(240, 240, 240, 1);
-  static Color boxShadowDarkColor = Colors.transparent;
+  // ==================== ДОПОЛНИТЕЛЬНЫЕ ====================
 
-  static Color greyDefaultLightColor = const Color.fromRGBO(184, 187, 186, 1);
-  static Color greyAccentDefaultLightColor =
-      const Color.fromRGBO(233, 235, 234, 0.98);
-  static Color accentDefaultLightColor =
-      const Color.fromRGBO(217, 229, 238, 0.98);
+  static const Color accentOrange =
+      Color(0xFFFFB74D); // Оранжевый акцент (для важных действий)
+  static const Color errorRed = Color(0xFFE57373); // Мягкий красный для ошибок
+  static const Color successGreen =
+      Color(0xFF81C784); // Мягкий зелёный для успеха
 
-  static Color greyDefaultDarkColor = const Color.fromRGBO(109, 121, 130, 1);
-  static Color greyAccentDefaultDarkColor = const Color.fromRGBO(48, 53, 57, 1);
-  static Color accentDefaultDarkColor = const Color.fromRGBO(62, 70, 76, 1);
+  // ==================== ТЕНИ И ГРАНИЦЫ ====================
 
-  static Color animationMainDefaultLightColor =
-      const Color.fromRGBO(45, 78, 102, 0.98);
-  static Color animationGreyDefaultLightColor =
-      const Color.fromRGBO(222, 225, 224, 0.98);
-  static Color animationWhiteDefaultLightColor =
-      const Color.fromRGBO(238, 247, 254, 0.98);
+  static const Color boxShadow = Color(0x1A64B5F6); // Полупрозрачная синяя тень
+  static const Color borderLight = Color(0xFFBBDEFB); // Светло-синяя граница
+  static const Color borderFocus =
+      Color(0xFF42A5F5); // Более яркая граница при фокусе
 
-  static Color animationMainDefaultDarkColor =
-      const Color.fromRGBO(20, 165, 120, 1);
-  static Color animationGreyDefaultDarkColor =
-      const Color.fromRGBO(135, 150, 162, 1);
-  static Color animationBlackDefaultDarkColor =
-      const Color.fromRGBO(53, 59, 63, 1);
+  // ==================== СОВМЕСТИМОСТЬ СО СТАРЫМ КОДОМ ====================
 
-  static Color defaultErrorLightColor = const Color.fromRGBO(214, 65, 65, 1);
-  static Color defaultBlueLightColor = const Color.fromRGBO(53, 145, 230, 1);
-  static Color defaultMainLightColor = const Color.fromRGBO(255, 255, 255, 1);
-
-  static Color defaultErrorDarkColor = const Color.fromRGBO(214, 65, 65, 1);
-  static Color defaultBlueDarkColor = const Color.fromRGBO(53, 145, 230, 1);
-  static Color defaultMainDarkColor = const Color.fromRGBO(11, 11, 11, 1);
-
-  static const white = Colors.white;
-  static const black = Colors.black;
-  static const blue = Colors.blue;
-
-  static const red = Colors.red;
-  static const darkerRed = Color(0xFFCB5A5E);
-
-  static const grey = Colors.grey;
-  static const darkerGrey = Color(0xFF6C6C6C);
-  static const darkestGrey = Color(0xFF626262);
-  static const lighterGrey = Color(0xFF959595);
-  static const lightGrey = Color(0xFF5d5d5d);
-
-  static const lighterDark = Color(0xFF272727);
-  static const lightDark = Color(0xFF1b1b1b);
-
-  static const purpleAccent = Colors.purpleAccent;
-
-  static const backgroundSplashScreen = Color.fromRGBO(58, 49, 111, 1);
-
-  // Добавляем сиреневые цвета из нашей темы
-  static const sirenDark = Color(0xFF6A1B9A); // Насыщенный фиолетовый
-  static const sirenLight = Color(0xFFAB47BC); // Лиловый
-  static const sirenMedium = Color(0xFF8E24AA); // Средний сиреневый
-  static const sirenPale = Color(0xFFD1C4E9); // Светло-сиреневый
+  // Для обратной совместимости с MireaColorsTheme
+  static Color get defaultLightColor => primaryLight;
+  static Color get backgroundAppLightColor => backgroundLight;
+  static Color get backgroundWidgetLightColor => backgroundWidgetLight;
+  static Color get greyDefaultLightColor =>
+      textHint; // Серый заменён на светло-синий
+  static Color get lightButtonColor => primaryLight;
+  static Color get boxShadowLightColor => boxShadow;
+  static Color get defaultTransparentColor => Colors.transparent;
+  static Color get defaultBlackColor =>
+      textPrimary; // "Чёрный" заменён на тёмно-синий
 }

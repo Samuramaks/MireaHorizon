@@ -1,58 +1,34 @@
-import 'package:flutter/material.dart';
+// import 'package:mirea_horizon/presentation/bloc/theme_bloc/bloc.dart';
+// import 'package:mirea_horizon/presentation/mirea_horizon_theme/mirea_app_theme.dart';
+// import 'package:mirea_horizon/presentation/mirea_horizon_theme/mirea_color_scheme.dart';
+// import 'package:mirea_horizon/presentation/mirea_horizon_theme/theme_extensions/text_theme.dart';
+// import 'package:mirea_horizon/presentation/mirea_horizon_theme/theme_extensions/theme_colors.dart';
 
-import '../mirea_app_theme.dart';
-import '../theme_extensions/theme_extensions.dart';
-import '../mirea_color_scheme.dart';
-
-ThemeData createDarkTheme() {
-  var themeData = ThemeData(
-    pageTransitionsTheme: const PageTransitionsTheme(
-      builders: <TargetPlatform, PageTransitionsBuilder>{
-        // Set the predictive back transitions for Android.
-        TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
-      },
-    ),
-    brightness: Brightness.dark,
-    primaryColor: AppColors.defaultLightColor,
-    scaffoldBackgroundColor: AppColors.backgroundAppDarkColor,
-    dialogBackgroundColor: AppColors.backgroundWidgetDarkColor,
-
-    shadowColor: AppColors.boxShadowDarkColor,
-    extensions: <ThemeExtension<dynamic>>[
-      MireaColorsTheme.dark,
-      MireaColorsTheme.dark
-    ],
-
-    colorScheme: MireaColorScheme.dark,
-    fontFamily: "Inter",
-    // splashColor: AppColors.clickWhiteLightColor,
-    // textTheme: const MuctrTextTheme(Brightness.light),
-    // iconTheme: MuctrIconTheme(brightness: Brightness.light),
-    // iconButtonTheme: const MuctrIconButtonTheme(),
-    // elevatedButtonTheme: MuctrElevatedButtonTheme(brightness: Brightness.light),
-    // filledButtonTheme: MuctrFilledButtonTheme(brightness: Brightness.light),
-    // floatingActionButtonTheme:
-    // MuctrFloatingButtonTheme(brightness: Brightness.light),
-
-    // cardTheme: MuctrCardTheme(brightness: Brightness.light),
-    // listTileTheme: MuctrListTileTheme(brightness: Brightness.light),
-    // popupMenuTheme: const MuctrPopupMenuTheme(),
-    // expansionTileTheme: MuctrExpansionTileTheme(brightness: Brightness.light),
-    // checkboxTheme: MuctrCheckboxTheme(),
-    // datePickerTheme: const MuctrDatePickerTheme(),
-    // snackBarTheme: const MuctrSnacBartheme(),
-    // progressIndicatorTheme: const MuctrProgressIndicatorTheme(),
-    // drawerTheme: const MuctrDrawerTheme(),
-    // timePickerTheme: MuctrTimePickerTheme(brightness: Brightness.light),
-    // dialogTheme: MuctrDialogTheme(brightness: Brightness.light),
-    appBarTheme: AppBarTheme(
-        elevation: 0,
-        shadowColor: AppColors.defaultDarkColor,
-        backgroundColor: AppColors.defaultDarkColor,
-        foregroundColor: AppColors.defaultBlackColor,
-        centerTitle: true),
-
-    useMaterial3: true,
-  );
-  return themeData;
-}
+// ThemeData createDarkTheme() {
+//   return ThemeData(
+//     pageTransitionsTheme: const PageTransitionsTheme(
+//       builders: <TargetPlatform, PageTransitionsBuilder>{
+//         TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
+//       },
+//     ),
+//     brightness: Brightness.dark,
+//     primaryColor: AppColors.primaryDark,
+//     scaffoldBackgroundColor: AppColors.backgroundAppDarkColor,
+//     dialogBackgroundColor: AppColors.backgroundWidgetLightColor,
+//     shadowColor: Colors.transparent,
+//     extensions: <ThemeExtension<dynamic>>[
+//       MireaColorsTheme.dark,
+//       MireaTextTheme.dark
+//     ],
+//     colorScheme: MireaColorScheme.dark,
+//     fontFamily: "Inter",
+//     appBarTheme: AppBarTheme(
+//       elevation: 0,
+//       backgroundColor: AppColors.backgroundAppDarkColor,
+//       foregroundColor: AppColors.textOnPrimary,
+//       iconTheme: const IconThemeData(color: AppColors.textOnPrimary),
+//       centerTitle: true,
+//     ),
+//     useMaterial3: true,
+//   );
+// }

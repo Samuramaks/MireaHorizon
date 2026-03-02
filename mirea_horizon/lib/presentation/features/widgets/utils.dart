@@ -41,16 +41,18 @@ class MyUtils {
           ),
           const SizedBox(height: 10),
           const Text(
-            'Подробнее можете почитать на сайте Мирэа, нажав на кнопку',
+            'Подробнее можете почитать на сайте РТУ МИРЭА, нажав на кнопку',
             style: TextStyle(fontSize: 16),
             textAlign: TextAlign.center,
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.onSurface,
+                foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                elevation: 2),
             onPressed: () =>
                 launchInBrowser(Uri.parse('https://priem.mirea.ru/guide')),
-            child: Text('Сайт Мирэа',
-                style:
-                    TextStyle(color: Theme.of(context).colorScheme.onSurface)),
+            child: const Text('РТУ МИРЭА'),
           ),
           const SizedBox(height: 16),
         ],
@@ -104,7 +106,11 @@ class MyUtils {
                         ),
                       ),
                       onPressed: () => launchInBrowser(Uri.parse(url)),
-                      child: Text('Подробнее'),
+                      child: Text(
+                        'Подробнее',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface),
+                      ),
                     ),
                   ],
                 ),

@@ -9,7 +9,7 @@ class CustomWidget extends StatelessWidget {
       this.actions});
   final String nameAppBar;
   final Widget body;
-  final PreferredSize? bottom;
+  final PreferredSizeWidget? bottom;
   final List<Widget>? actions;
 
   @override

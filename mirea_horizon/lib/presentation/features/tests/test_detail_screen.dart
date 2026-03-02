@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mirea_horizon/data/models/tests/test_models.dart';
+import 'package:mirea_horizon/presentation/features/widgets/tramslation.dart';
 
 class TestDetailScreen extends StatefulWidget {
   final Test test;
@@ -18,6 +19,13 @@ class _TestDetailScreenState extends State<TestDetailScreen> {
     super.initState();
     selectedAnswers = List.filled(widget.test.questions.length,
         null); // Инициализируем список выбранных ответов
+  }
+
+  String? _extractAnswerLetter(String? fullAnswer) {
+    if (fullAnswer == null) return null;
+    // Ожидаем формат: "A) Текст ответа" или "B. Текст"
+    final match = RegExp(r'^([A-D])[).]').firstMatch(fullAnswer);
+    return match?.group(1);
   }
 
   void submitTest() {
@@ -40,7 +48,13 @@ class _TestDetailScreenState extends State<TestDetailScreen> {
       score = programmingScore + designScore + analytScore;
     } else {
       for (int i = 0; i < widget.test.questions.length; i++) {
-        if (selectedAnswers[i] == widget.test.questions[i].correctAnswer) {
+        final selectedLetter = _extractAnswerLetter(selectedAnswers[i]);
+        final correctAnswer = widget.test.questions[i].correctAnswer;
+        // print(
+        //     'Q$i: Выбрано: "${selectedAnswers[i]}", Правильный ответ: "${widget.test.questions[i].correctAnswer}"');
+        // print(
+        //     '   Типы: selected=${selectedAnswers[i]?.runtimeType}, correct=${widget.test.questions[i].correctAnswer?.runtimeType}');
+        if (selectedLetter == correctAnswer) {
           score++;
         }
       }
@@ -63,7 +77,7 @@ class _TestDetailScreenState extends State<TestDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.test.nameTest,
+        title: Text(TestTranslations.getDirectionRu(widget.test.nameTest),
             style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
       ),
       body: Column(
@@ -87,10 +101,14 @@ class _TestDetailScreenState extends State<TestDetailScreen> {
             ),
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.onSurface,
+                foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                elevation: 2),
             onPressed: submitTest,
-            child: Text('Отправить тест',
-                style:
-                    TextStyle(color: Theme.of(context).colorScheme.onSurface)),
+            child: const Text(
+              'Отправить тест',
+            ),
           ),
         ],
       ),

@@ -1,59 +1,116 @@
+// import 'package:flutter/material.dart';
+// import 'package:mirea_horizon/presentation/mirea_horizon_theme/mirea_app_theme.dart';
+// import '../theme_extensions/theme_extensions.dart';
+// import '../mirea_color_scheme.dart';
+
+// ThemeData createLightTheme() {
+//   return ThemeData(
+//     pageTransitionsTheme: const PageTransitionsTheme(
+//       builders: <TargetPlatform, PageTransitionsBuilder>{
+//         TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
+//       },
+//     ),
+//     brightness: Brightness.light,
+//     primaryColor: AppColors.primaryLight,
+//     scaffoldBackgroundColor: AppColors.backgroundAppLightColor,
+//     dialogBackgroundColor: AppColors.backgroundWidgetLightColor,
+//     shadowColor: AppColors.boxShadowLightColor,
+//     extensions: <ThemeExtension<dynamic>>[
+//       MireaColorsTheme.light,
+//       MireaTextTheme.light
+//     ],
+//     colorScheme: MireaColorScheme.light,
+//     fontFamily: "Inter",
+//     appBarTheme: AppBarTheme(
+//       elevation: 0,
+//       backgroundColor: AppColors.backgroundAppLightColor,
+//       foregroundColor: AppColors.appBarIconColor,
+//       iconTheme: const IconThemeData(color: AppColors.appBarIconColor),
+//       centerTitle: true,
+//     ),
+//     useMaterial3: true,
+//   );
+// }
+
+// lib/presentation/theme/mirea_app_theme.dart
+
 import 'package:flutter/material.dart';
+import 'package:mirea_horizon/presentation/mirea_horizon_theme/mirea_app_theme.dart';
+import 'package:mirea_horizon/presentation/mirea_horizon_theme/mirea_color_scheme.dart';
+import 'package:mirea_horizon/presentation/mirea_horizon_theme/theme_extensions/theme_colors.dart';
 
-import '../mirea_app_theme.dart';
-import '../theme_extensions/theme_extensions.dart';
-import '../mirea_color_scheme.dart';
+class MireaAppTheme {
+  static ThemeData get lightTheme {
+    final colorScheme = MireaColorScheme.light;
 
-ThemeData createLightTheme() {
-  var themeData = ThemeData(
-    pageTransitionsTheme: const PageTransitionsTheme(
-      builders: <TargetPlatform, PageTransitionsBuilder>{
-        // Set the predictive back transitions for Android.
-        TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
-      },
-    ),
-    brightness: Brightness.light,
-    primaryColor: AppColors.defaultLightColor,
-    scaffoldBackgroundColor: AppColors.backgroundAppLightColor,
-    dialogBackgroundColor: AppColors.backgroundWidgetLightColor,
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.light,
+      colorScheme: colorScheme,
 
-    shadowColor: AppColors.boxShadowLightColor,
-    extensions: <ThemeExtension<dynamic>>[
-      MireaColorsTheme.light,
-      MireaTextTheme.light
-    ],
+      // ✅ Фон приложения — белый
+      scaffoldBackgroundColor: AppColors.backgroundLight,
 
-    colorScheme: MireaColorScheme.light,
-    fontFamily: "Inter",
-    // splashColor: AppColors.clickWhiteLightColor,
-    // textTheme: const MuctrTextTheme(Brightness.light),
-    // iconTheme: MuctrIconTheme(brightness: Brightness.light),
-    // iconButtonTheme: const MuctrIconButtonTheme(),
-    // elevatedButtonTheme: MuctrElevatedButtonTheme(brightness: Brightness.light),
-    // filledButtonTheme: MuctrFilledButtonTheme(brightness: Brightness.light),
-    // floatingActionButtonTheme:
-    // MuctrFloatingButtonTheme(brightness: Brightness.light),
+      // ✅ Карточки/виджеты — светло-голубой фон
+      cardColor: AppColors.backgroundWidgetLight,
 
-    // cardTheme: MuctrCardTheme(brightness: Brightness.light),
-    // listTileTheme: MuctrListTileTheme(brightness: Brightness.light),
-    // popupMenuTheme: const MuctrPopupMenuTheme(),
-    // expansionTileTheme: MuctrExpansionTileTheme(brightness: Brightness.light),
-    // checkboxTheme: MuctrCheckboxTheme(),
-    // datePickerTheme: const MuctrDatePickerTheme(),
-    // snackBarTheme: const MuctrSnacBartheme(),
-    // progressIndicatorTheme: const MuctrProgressIndicatorTheme(),
-    // drawerTheme: const MuctrDrawerTheme(),
-    // timePickerTheme: MuctrTimePickerTheme(brightness: Brightness.light),
-    // dialogTheme: MuctrDialogTheme(brightness: Brightness.light),
-    appBarTheme: AppBarTheme(
+      // ✅ Кнопки — светло-синие
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primaryLight,
+          foregroundColor: AppColors.textOnPrimary,
+          elevation: 2,
+          shadowColor: AppColors.boxShadow,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      ),
+
+      // ✅ Текстовые поля — светло-синяя обводка
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: AppColors.backgroundWidgetLight,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColors.borderLight),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColors.borderLight),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColors.borderFocus, width: 2),
+        ),
+        hintStyle: TextStyle(color: AppColors.textHint),
+      ),
+
+      // ✅ Текст — тёмно-синий для читаемости на белом
+      textTheme: const TextTheme(
+        bodyLarge: TextStyle(color: AppColors.textPrimary),
+        bodyMedium: TextStyle(color: AppColors.textPrimary),
+        titleLarge: TextStyle(
+            color: AppColors.textPrimary, fontWeight: FontWeight.bold),
+        labelLarge: TextStyle(color: AppColors.textSecondary),
+      ),
+
+      // ✅ Иконки в AppBar — светло-синие
+      appBarTheme: const AppBarTheme(
+        backgroundColor: AppColors.backgroundLight,
+        foregroundColor: AppColors.primaryLight,
         elevation: 0,
-        shadowColor: AppColors.defaultLightColor,
-        backgroundColor: AppColors.defaultLightColor,
-        iconTheme: IconThemeData(color: AppColors.sirenLight),
-        foregroundColor: AppColors.defaultWhiteColor,
-        centerTitle: true),
+      ),
 
-    useMaterial3: true,
-  );
-  return themeData;
+      // ✅ Добавляем наше расширение
+      extensions: [MireaColorsTheme.light],
+    );
+  }
+
+  static ThemeData get darkTheme {
+    // Аналогично для тёмной темы, если нужна
+    return ThemeData.dark().copyWith(
+      extensions: [MireaColorsTheme.dark],
+    );
+  }
 }

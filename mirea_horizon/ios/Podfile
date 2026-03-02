@@ -1,3 +1,62 @@
+# platform :ios, '15.0'
+
+# ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+# project 'Runner', {
+#   'Debug' => :debug,
+#   'Profile' => :release,
+#   'Release' => :release,
+# }
+
+# def flutter_root
+#   generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
+#   unless File.exist?(generated_xcode_build_settings_path)
+#     raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
+#   end
+
+#   File.foreach(generated_xcode_build_settings_path) do |line|
+#     matches = line.match(/FLUTTER_ROOT\=(.*)/)
+#     return matches[1].strip if matches
+#   end
+#   raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
+# end
+
+# require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
+
+# flutter_ios_podfile_setup
+
+# target 'Runner' do
+#   pod 'Firebase/Auth', '11.8.0'
+#   use_frameworks!
+#   use_modular_headers!
+
+#   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+#   target 'RunnerTests' do
+#     inherit! :search_paths
+#   end
+# end
+
+# post_install do |installer|
+#   installer.pods_project.targets.each do |target|
+#     flutter_additional_ios_build_settings(target)
+#     target.build_configurations.each do |config|
+#       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+#       config.build_settings['ENABLE_BITCODE'] = 'NO'
+#       config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+#       config.build_settings['EXPANDED_CODE_SIGN_IDENTITY'] = ""
+#       config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
+#       config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"
+#       config.build_settings['CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'
+#       config.build_settings['DEFINES_MODULE'] = 'YES'
+#     end
+#   end
+# end
+
+
+
+# Глобальная переменная для согласованной версии Firebase SDK
+$FirebaseSDKVersion = '11.8.0'
+
 platform :ios, '15.0'
 
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -26,11 +85,11 @@ require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelpe
 flutter_ios_podfile_setup
 
 target 'Runner' do
-  pod 'Firebase/Auth', '11.8.0'
-  use_frameworks!
-  use_modular_headers!
+  use_frameworks!  # ОБЯЗАТЕЛЬНО для Firebase (убрать use_modular_headers!)
 
+  # НЕ добавлять вручную pod 'Firebase/Auth' — это делают плагины!
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+  
   target 'RunnerTests' do
     inherit! :search_paths
   end
@@ -39,15 +98,33 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+      # Согласуем версию с platform :ios
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+      
+      # Отключаем bitcode (требуется для многих плагинов)
       config.build_settings['ENABLE_BITCODE'] = 'NO'
-      config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
-      config.build_settings['EXPANDED_CODE_SIGN_IDENTITY'] = ""
-      config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
-      config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"
-      config.build_settings['CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'
-      config.build_settings['DEFINES_MODULE'] = 'YES'
+      
+      # Фикс для симулятора на Apple Silicon (M1/M2/M3)
+      # Раскомментируйте ТОЛЬКО если ошибка "building for iOS Simulator, but linking in object file built for iOS"
+      # config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+      
+      # Отладка без подписи (только для симулятора)
+      if config.name == 'Debug'
+        config.build_settings['EXPANDED_CODE_SIGN_IDENTITY'] = ""
+        config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
+        config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"
+      end
+    end
+  end
+  
+  # Гарантируем модульность для всех Pods
+  installer.generated_projects.each do |project|
+    project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['DEFINES_MODULE'] = 'YES'
+      end
     end
   end
 end

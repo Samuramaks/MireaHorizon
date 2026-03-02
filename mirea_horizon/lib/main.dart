@@ -17,6 +17,7 @@ void main() async {
   // ?await Firebase.initializeApp(options: DefaultFirebaseOptions.ios);
   await AppInitializer.initializeFirebase();
   await DependeciesInitializer.setup();
+  await DependeciesInitializer.initializeUserAvatar();
 
   // Для тестирования: выход из аккаунта при запуске
   // await FirebaseAuth.instance.signOut();
@@ -39,8 +40,8 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp.router(
             title: 'Mirea Horizon',
-            theme: createLightTheme(),
-            darkTheme: createDarkTheme(),
+            theme: MireaAppTheme.lightTheme,
+            darkTheme: MireaAppTheme.darkTheme,
             themeMode: state.themeMode,
             routerConfig: router,
           );

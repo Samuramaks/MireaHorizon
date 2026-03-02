@@ -50,4 +50,53 @@ class UserRepository implements UserDao {
       return 0; // Возвращаем null в случае исключения
     }
   }
+
+  /// Получает список доступных аватарок с сервера
+  /// Возвращает полные URL для загрузки изображений
+  Future<List<String>> fetchAvailableAvatars() async {
+    final uri = Uri.parse('$baseUrl/api/user/avatars');
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonList = jsonDecode(response.body);
+      // Преобразуем относительные пути в полные URL
+      return jsonList
+          .whereType<String>()
+          .map((path) => '$baseUrl$path')
+          .toList();
+    }
+    throw Exception('Не удалось загрузить аватарки: ${response.statusCode}');
+  }
+
+  /// Обновляет аватарку пользователя на сервере
+  /// [email] — email пользователя
+  /// [avatarUrl] — относительный путь к аватарке (например, "/avatars/cat.png")
+  Future<bool> updateAvatar(String email, String avatarUrl) async {
+    final uri = Uri.parse('$baseUrl/api/user/avatar?email=$email');
+    final response = await http.put(
+      uri,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'avatarUrl': avatarUrl}),
+    );
+    return response.statusCode == 200;
+  }
+
+  /// Получает данные пользователя по email
+  Future<UserCustom?> fetchUser(String email) async {
+    if (email.isEmpty) return null;
+
+    final uri = Uri.parse('$baseUrl/api/user?email=$email');
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      return UserCustom.fromJson(jsonDecode(response.body));
+    }
+    return null;
+  }
+
+  /// Обновляет данные пользователя в локальном кэше (опционально)
+  void updateUserLocally(UserCustom user) {
+    // Можно добавить кэширование через shared_preferences или hive
+    // Пример: await prefs.setString('current_user', jsonEncode(user.toJson()));
+  }
 }

@@ -9,10 +9,10 @@ class IgceCardTheme extends CardTheme {
       : super(
             color: brightness == Brightness.light
                 ? AppColors.backgroundAppLightColor
-                : AppColors.backgroundAppDarkColor,
+                : AppColors.backgroundDark,
             shadowColor: brightness == Brightness.light
-                ? AppColors.greyAccentDefaultLightColor
-                : AppColors.greyAccentDefaultDarkColor,
+                ? AppColors.boxShadow
+                : Colors.transparent,
             elevation: 1.4,
             margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             shape:

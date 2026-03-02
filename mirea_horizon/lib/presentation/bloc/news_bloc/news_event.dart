@@ -10,3 +10,8 @@ abstract class NewsEvent extends Equatable {
 class FetchNews extends NewsEvent {}
 
 class RefreshNews extends NewsEvent {}
+
+class LoadNewsByUrl extends NewsEvent {
+  final String url;
+  LoadNewsByUrl(this.url);
+}

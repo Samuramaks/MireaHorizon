@@ -40,12 +40,18 @@ class TestResultScreen extends StatelessWidget {
                     const Text(
                         'Вы набрали 0 баллов, пожалуйста повторите попытку'),
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.onSurface,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.onPrimary,
+                          elevation: 2),
                       onPressed: () async {
                         context.go(TestsRoutes.base());
                       },
-                      child: Text('Вернуться к тестам',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface)),
+                      child: const Text(
+                        'Вернуться к тестам',
+                      ),
                     ),
                   ],
                 )
@@ -91,16 +97,20 @@ class TestResultScreen extends StatelessWidget {
                           MyUtils.buildDirectionInfo(context),
                           const SizedBox(height: 20),
                           ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.onSurface,
+                                foregroundColor:
+                                    Theme.of(context).colorScheme.onPrimary,
+                                elevation: 2),
                             onPressed: () async {
                               await spRepository.setNewUserFlag(false);
                               context.read<TestBloc>().add(FetchTests());
                               context.go(TestsRoutes.base());
                             },
-                            child: Text('Вернуться к тестам',
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurface)),
+                            child: const Text(
+                              'Вернуться к тестам',
+                            ),
                           ),
                         ],
                       ),
@@ -114,6 +124,12 @@ class TestResultScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.onSurface,
+                              foregroundColor:
+                                  Theme.of(context).colorScheme.onPrimary,
+                              elevation: 2),
                           onPressed: () async {
                             await spRepository.saveTestResult(
                               testResultArguments.nameTest,
@@ -132,10 +148,9 @@ class TestResultScreen extends StatelessWidget {
                             ));
                             context.go(TestsRoutes.base());
                           },
-                          child: Text('Вернуться к тестам',
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface)),
+                          child: const Text(
+                            'Вернуться к тестам',
+                          ),
                         ),
                       ],
                     ),

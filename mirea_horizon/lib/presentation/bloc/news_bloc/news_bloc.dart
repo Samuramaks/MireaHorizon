@@ -10,6 +10,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   NewsBloc() : super(NewsInitial()) {
     on<FetchNews>(_onFetchNews);
     on<RefreshNews>(_onRefreshNews);
+    on<LoadNewsByUrl>(_onLoadNewsByUrl);
   }
 
   Future<void> _onFetchNews(FetchNews event, Emitter<NewsState> emit) async {
@@ -26,6 +27,18 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       RefreshNews event, Emitter<NewsState> emit) async {
     try {
       final news = await _newsService.fetchNews(); // Теперь это List<NewsItem>
+      emit(NewsLoaded(news));
+    } catch (e) {
+      emit(NewsError(e.toString()));
+    }
+  }
+
+  Future<void> _onLoadNewsByUrl(
+      LoadNewsByUrl event, Emitter<NewsState> emit) async {
+    emit(NewsLoading());
+    try {
+      final config = SectionConfig(url: event.url);
+      final news = await _newsService.fetchSection(config);
       emit(NewsLoaded(news));
     } catch (e) {
       emit(NewsError(e.toString()));
